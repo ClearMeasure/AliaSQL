@@ -1,0 +1,1 @@
+﻿INSERT INTO TestTable (FullName,value1,value2) VALUES ('DB Demo',3,4)

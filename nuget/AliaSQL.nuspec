@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata schemaVersion="2">
+    <id>AliaSQL</id>
+    <version>1.0.0.0</version>
+    <title>AliaSQL</title>
+    <authors>Eric Coffman</authors>
+    <owners>Eric Coffman</owners>
+    <licenseUrl>http://github.com/ericdc1/AliaSQL/license.txt</licenseUrl>
+    <projectUrl>http://github.com/ericdc1/AliaSQL</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Command line database change management tool</description>
+    <summary></summary>
+    <tags>Database, change management</tags>
+    <iconUrl>https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL-200x200.png</iconUrl>
+    <frameworkAssemblies>
+    </frameworkAssemblies>
+    <releaseNotes>
+    </releaseNotes>
+  </metadata>
+  <files>
+    <file src="..\build\package\AliaSQL\AliaSQL.exe" target="tools\AliaSQL.exe" />
+    <file src="..\build\package\AliaSQL\AliaSQL.pdb" target="tools\AliaSQL.pdb" />
+  </files>
+</package>
