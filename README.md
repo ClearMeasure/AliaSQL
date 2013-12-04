@@ -1,4 +1,4 @@
-![](https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL.PNG)
+<img src="https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL.PNG" alt="AliaSQL" width="400">
 
 AliaSQL is a command line tool for database deployments
 
