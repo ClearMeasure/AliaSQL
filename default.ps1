@@ -105,6 +105,7 @@ task Package -depends Compile {
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.nuspec
     }
+    copy-item $package_dir\AliaSQL\AliaSQL.exe $base_dir\nuget\content\scripts\AliaSQL.exe -Force
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Kickstarter.nuspec
     }
