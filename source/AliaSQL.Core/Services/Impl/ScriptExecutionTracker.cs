@@ -26,16 +26,16 @@ namespace AliaSQL.Core.Services.Impl
 				"insert into usd_AppliedDatabaseScript (ScriptFile, DateApplied) values ('{0}', getdate())";
 
 			string sql = string.Format(insertTemplate, scriptFilename);
-			_executor.ExecuteNonQuery(settings, sql, true);
+			_executor.ExecuteNonQueryTransactional(settings, sql);
 		}
 
-        public void MarkSeedScriptAsExecuted(ConnectionSettings settings, string scriptFilename, ITaskObserver task)
+        public void MarkTestDataScriptAsExecuted(ConnectionSettings settings, string scriptFilename, ITaskObserver task)
         {
             string insertTemplate =
-                "insert into usd_AppliedDatabaseSeedScript (ScriptFile, DateApplied) values ('{0}', getdate())";
+                "insert into usd_AppliedDatabaseTestDataScript (ScriptFile, DateApplied) values ('{0}', getdate())";
 
             string sql = string.Format(insertTemplate, scriptFilename);
-            _executor.ExecuteNonQuery(settings, sql, true);
+            _executor.ExecuteNonQueryTransactional(settings, sql);
         }
 
 		public bool ScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename)
@@ -51,12 +51,12 @@ namespace AliaSQL.Core.Services.Impl
 			return alreadyExecuted;
 		}
 
-        public bool SeedScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename)
+        public bool TestDataScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename)
         {
             if (_appliedScripts == null)
             {
                 _appliedScripts =
-                    _executor.ReadFirstColumnAsStringArray(settings, "select ScriptFile from usd_AppliedDatabaseSeedScript");
+                    _executor.ReadFirstColumnAsStringArray(settings, "select ScriptFile from usd_AppliedDatabaseTestDataScript");
             }
 
             bool alreadyExecuted = Array.IndexOf(_appliedScripts, scriptFilename) >= 0;

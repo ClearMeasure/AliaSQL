@@ -21,9 +21,9 @@ namespace AliaSQL.Core.Services.Impl
 			{
 				return new DatabaseAction[] { DatabaseAction.Drop, DatabaseAction.Create, DatabaseAction.Update };
 			}
-            else if (requestedDatabaseAction == RequestedDatabaseAction.Seed)
+            else if (requestedDatabaseAction == RequestedDatabaseAction.TestData)
             {
-                return new DatabaseAction[] { DatabaseAction.Seed };
+                return new DatabaseAction[] { DatabaseAction.TestData };
             }
             else if (requestedDatabaseAction == RequestedDatabaseAction.Baseline)
             {

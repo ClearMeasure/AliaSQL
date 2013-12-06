@@ -60,7 +60,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 			MockRepository mocks = new MockRepository();
             IQueryExecutor queryExecutor = mocks.StrictMock<IQueryExecutor>();
             ITaskObserver observer = mocks.StrictMock<ITaskObserver>();
-			queryExecutor.ExecuteNonQuery(settings, "insert into usd_AppliedDatabaseScript (ScriptFile, DateApplied) values ('03_Test.sql', getdate())", true);
+			queryExecutor.ExecuteNonQueryTransactional(settings, "insert into usd_AppliedDatabaseScript (ScriptFile, DateApplied) values ('03_Test.sql', getdate())");
 
 			mocks.ReplayAll();
 

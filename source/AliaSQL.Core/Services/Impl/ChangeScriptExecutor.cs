@@ -40,7 +40,7 @@ namespace AliaSQL.Core.Services.Impl
                 if (!logOnly)
                 {
                     string sql = _fileSystem.ReadTextFile(fullFilename);
-                    _executor.ExecuteNonQuery(settings, sql, true);
+                    _executor.ExecuteNonQueryTransactional(settings, sql);
                 }
                 else
                 {

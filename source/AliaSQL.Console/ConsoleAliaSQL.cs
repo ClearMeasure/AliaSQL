@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
@@ -46,15 +47,19 @@ namespace AliaSQL.Console
                 return true;
             }
             catch (Exception exception)
-            {                
+            {
                 var ex = exception;
                 do
                 {
                     Log("Failure: " + ex.Message);
-                    ex = ex.InnerException;    
-                } while (ex!=null);
+                    ex = ex.InnerException;
+                } while (ex != null);
 
             }
+
+            if (Debugger.IsAttached)
+                System.Console.ReadLine();
+
             return false;
         }
     }

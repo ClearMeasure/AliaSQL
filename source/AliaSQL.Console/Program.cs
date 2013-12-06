@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection.Emit;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services.Impl;
 
@@ -56,19 +55,19 @@ namespace AliaSQL.Console
         {
             System.Console.WriteLine("Invalid Arguments");
             System.Console.WriteLine(" ");
-            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Update|Rebuild|Seed|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ ");
+            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ ");
             System.Console.WriteLine(Environment.NewLine + "-- or --"+ Environment.NewLine);
-            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Update|Rebuild|Seed|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ Username Password");
+            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ Username Password");
             System.Console.WriteLine(Environment.NewLine + "---------------------------------------------" + Environment.NewLine);           
-            //System.Console.WriteLine("Create - Creates database and runs scripts in 'Create' and 'Update' folders.");
-            //System.Console.WriteLine(" ");
+            System.Console.WriteLine("Create - Creates database and runs scripts in 'Create' and 'Update' folders.");
+            System.Console.WriteLine(" ");
             System.Console.WriteLine("Update - Runs scripts in 'Update' folder. If database does not exist it will create it and run scripts in the 'Create' folder first.");
             System.Console.WriteLine(" ");
             System.Console.WriteLine("Rebuild - Drops then recreates database then runs scripts in 'Create' and 'Update' folders");
             System.Console.WriteLine(" "); 
-            System.Console.WriteLine("Seed - Runs scripts in 'Seed' folder. Database must already exist. Seed scripts are logged separate from Create and Update scripts.");
+            System.Console.WriteLine("TestData - Runs scripts in 'TestData' folder. Database must already exist. Seed scripts are logged separate from Create and Update scripts.");
             System.Console.WriteLine(" "); 
-            System.Console.WriteLine("Baseline - Creates AppliedDatabaseScripts table and logs all current scripts in 'Create' and 'Update' folders as applied without actually running them.");
+            System.Console.WriteLine("Baseline - Creates usd_AppliedDatabaseScripts table and logs all current scripts in 'Create' and 'Update' folders as applied without actually running them.");
 
             if (Debugger.IsAttached)
                 System.Console.ReadLine();

@@ -1,6 +1,6 @@
 properties {
 	$projectName = "AliaSQL" 
-    $version = "1.0.0"
+    $version = "1.0.1"
 
     $version = $version + "." + (get-date -format "MMdd")  
 	$projectConfig = "Release"
@@ -65,26 +65,20 @@ task RebuildDatabase {
 }
 
 task UpdateDatabase {
-    try{
         exec { & $AliaSQLPath\AliaSQL.exe Update $databaseServer "$databaseName" "$databaseScripts\Scripts"}
-    }
-    catch{
-        write-host "Database does not exist - running rebuild"
-        exec { &  $AliaSQLPath\AliaSQL.exe Rebuild $databaseServer "$databaseName" "$databaseScripts\Scripts"}
-    }
 }
 
-task SeedDatabase { 
-    exec { &  $AliaSQLPath\AliaSQL.exe Seed $databaseServer " $databaseName" "$databaseScripts\Scripts"}
+task TestDataDatabase { 
+    exec { &  $AliaSQLPath\AliaSQL.exe TestData $databaseServer " $databaseName" "$databaseScripts\Scripts"}
 }
 
 task Package -depends Compile {
     write-host "Clean package directory"
     delete_directory $package_dir
    
-    write-host "Copy newly compiled version of Database Deployer"
+    write-host "Copy newly compiled version of Database Deployer to package folder"
 	copy_files "$base_dir\source\AliaSQL.Console\Bin\Release" "$package_dir\AliaSQL" 
-
+	
     write-host "Copy in database scripts"
     copy_files "$databaseScripts\scripts" "$package_dir\database\"
     write-host "Copy AliaSQL tool so scripts can be ran"
@@ -106,6 +100,12 @@ task Package -depends Compile {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.nuspec
     }
     copy-item $package_dir\AliaSQL\AliaSQL.exe $base_dir\nuget\content\scripts\AliaSQL.exe -Force
+	
+	write-host "Copy newly compiled version of AliaSQL to Demo project"
+	copy-item $package_dir\AliaSQL\AliaSQL.exe $source_dir\Database.Demo\scripts\AliaSQL.exe -Force
+    write-host "Copy newly compiled version of AliaSQL to lib"
+	copy-item $package_dir\AliaSQL\AliaSQL.exe $source_dir\Database.Demo\scripts\AliaSQL.exe -Force
+	
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Kickstarter.nuspec
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Transactions;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
 using ConnectionSettings = AliaSQL.Core.Model.ConnectionSettings;
@@ -25,9 +26,14 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
 
         }
 
-        public void ExecuteNonQuery(ConnectionSettings settings, string sql, bool runAgainstSpecificDatabase)
+        /// <summary>
+        /// Runs queries that are not specific to a database such as Drop, Create, single user mode
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="sql"></param>
+        public void ExecuteNonQuery(ConnectionSettings settings, string sql)
         {
-            string connectionString = _connectionStringGenerator.GetConnectionString(settings, runAgainstSpecificDatabase);
+            string connectionString = _connectionStringGenerator.GetConnectionString(settings, false);
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -37,11 +43,46 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                     command.Connection = connection;
 
                     var scripts = SplitSqlStatements(sql);
+
+
                     foreach (var splitScript in scripts)
                     {
                         command.CommandText = splitScript;
                         command.ExecuteNonQuery();
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Runs larger queries that may be multiline separated with GO
+        /// Runs entire sql block in a single transaction that will rollback if any part of the query errors
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="sql"></param>
+        public void ExecuteNonQueryTransactional(ConnectionSettings settings, string sql)
+        {
+            //do all this in a single transaction
+            using (var scope = new TransactionScope())
+            {
+                string connectionString = _connectionStringGenerator.GetConnectionString(settings, true);
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+
+                        var scripts = SplitSqlStatements(sql);
+
+
+                        foreach (var splitScript in scripts)
+                        {
+                            command.CommandText = splitScript;
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    scope.Complete();
                 }
             }
         }

@@ -25,9 +25,9 @@ namespace AliaSQL.Core.Services.Impl
                 {
                     return new DatabaseDropper();
                 }
-                else if (databaseAction.Equals(DatabaseAction.Seed))
+                else if (databaseAction.Equals(DatabaseAction.TestData))
                 {
-                    return new DatabaseSeeder();
+                    return new DatabaseTestData();
                 }
                 else if (databaseAction.Equals(DatabaseAction.Baseline))
                 {

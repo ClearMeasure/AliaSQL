@@ -2,6 +2,6 @@
 {
 	public enum RequestedDatabaseAction
 	{
-		Create, Update, Drop, Rebuild, Seed, Baseline
+		Create, Update, Drop, Rebuild, TestData, Baseline
 	}	
 }

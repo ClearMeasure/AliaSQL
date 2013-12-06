@@ -8,8 +8,8 @@ namespace AliaSQL.Core.Services
 	{
 		void MarkScriptAsExecuted(ConnectionSettings settings, string scriptFilename, ITaskObserver task);
 		bool ScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename);
-  
-		void MarkSeedScriptAsExecuted(ConnectionSettings settings, string scriptFilename, ITaskObserver task);
-		bool SeedScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename);
+
+        void MarkTestDataScriptAsExecuted(ConnectionSettings settings, string scriptFilename, ITaskObserver task);
+		bool TestDataScriptAlreadyExecuted(ConnectionSettings settings, string scriptFilename);
 	}
 }

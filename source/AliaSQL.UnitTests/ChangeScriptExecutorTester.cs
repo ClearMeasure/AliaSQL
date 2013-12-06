@@ -48,7 +48,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 			Expect.Call(executionTracker.ScriptAlreadyExecuted(settings, "01_Test.sql")).Return(false);
 			taskObserver.Log("Executing: 01_Test.sql");
 			Expect.Call(fileSystem.ReadTextFile(scriptFile)).Return(fileContents);
-			queryExecutor.ExecuteNonQuery(settings, fileContents, true);
+			queryExecutor.ExecuteNonQueryTransactional(settings, fileContents);
 			executionTracker.MarkScriptAsExecuted(settings, "01_Test.sql", taskObserver);
 
 			mocks.ReplayAll();

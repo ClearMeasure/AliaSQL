@@ -7,6 +7,6 @@ namespace AliaSQL.Core.Services
 	public interface ISchemaInitializer
 	{
 		void EnsureSchemaCreated(ConnectionSettings settings);
-        void EnsureSeedSchemaCreated(ConnectionSettings settings);
+        void EnsureTestDataSchemaCreated(ConnectionSettings settings);
 	}
 }

@@ -38,7 +38,7 @@ namespace AliaSQL.Core.Services.Impl
 			_replacer.Replace("DatabaseName", settings.Database);
 			sql = _replacer.Text;
 
-			_executor.ExecuteNonQuery(settings, sql, false);
+			_executor.ExecuteNonQuery(settings, sql);
 		}
 	}
 }

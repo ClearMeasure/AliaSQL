@@ -32,7 +32,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 				replacer.Text = "Unformatted SQL";
 				replacer.Replace("DatabaseName", "MyDatabase");
 				Expect.Call(replacer.Text).Return("Formatted SQL");
-				queryExecutor.ExecuteNonQuery(settings, "Formatted SQL", false);
+				queryExecutor.ExecuteNonQuery(settings, "Formatted SQL");
 			}
 
 			using (mocks.Playback())

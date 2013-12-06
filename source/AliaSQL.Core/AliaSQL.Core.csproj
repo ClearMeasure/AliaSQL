@@ -57,13 +57,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ConnectionSettings.cs" />
     <Compile Include="Model\TaskAttributes.cs" />
     <Compile Include="Services\Impl\DatabaseBaseliner.cs" />
-    <Compile Include="Services\ISeedScriptExecutor.cs" />
+    <Compile Include="Services\ITestDataScriptExecutor.cs" />
     <Compile Include="Services\IChangeScriptExecutor.cs" />
     <Compile Include="Services\IConnectionStringGenerator.cs" />
     <Compile Include="Services\IDatabaseActionExecutor.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Services\IDatabaseVersioner.cs" />
     <Compile Include="Services\IFileFilterService.cs" />
     <Compile Include="Services\ILogMessageGenerator.cs" />
-    <Compile Include="Services\Impl\SeedScriptExecutor.cs" />
+    <Compile Include="Services\Impl\TestDataScriptExecutor.cs" />
     <Compile Include="Services\Impl\ChangeScriptExecutor.cs" />
     <Compile Include="Services\Impl\ConnectionStringGenerator.cs" />
     <Compile Include="Services\Impl\DatabaseAction.cs" />
@@ -82,7 +83,7 @@
     <Compile Include="Services\Impl\DatabaseConnectionDropper.cs" />
     <Compile Include="Services\Impl\DatabaseCreator.cs" />
     <Compile Include="Services\Impl\DatabaseDropper.cs" />
-    <Compile Include="Services\Impl\DatabaseSeeder.cs" />
+    <Compile Include="Services\Impl\DatabaseTestData.cs" />
     <Compile Include="Services\Impl\DatabaseUpdater.cs" />
     <Compile Include="Services\Impl\DatabaseVersioner.cs" />
     <Compile Include="Services\Impl\FileFilterService.cs" />
@@ -149,7 +150,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SqlFiles\CreateSeedSchema.sql" />
+    <EmbeddedResource Include="SqlFiles\CreateTestDataSchema.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

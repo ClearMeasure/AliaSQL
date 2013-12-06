@@ -59,7 +59,7 @@
   <ItemGroup>
     <Content Include="Scripts\AliaSQL.exe" />
     <Content Include="Scripts\Update\0001_add_table.sql" />
-    <Content Include="Scripts\Seed\0001-Start.sql" />
+    <Content Include="Scripts\TestData\0001-Start.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scripts\Create\" />

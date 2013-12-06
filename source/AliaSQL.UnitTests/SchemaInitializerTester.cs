@@ -26,7 +26,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
             IQueryExecutor queryExecutor = mocks.StrictMock<IQueryExecutor>();
 
 			Expect.Call(fileLocator.ReadTextFile(assembly, sqlFile)).Return(sqlScript);
-			queryExecutor.ExecuteNonQuery(settings, sqlScript, true);
+			queryExecutor.ExecuteNonQueryTransactional(settings, sqlScript);
 
 			mocks.ReplayAll();
 

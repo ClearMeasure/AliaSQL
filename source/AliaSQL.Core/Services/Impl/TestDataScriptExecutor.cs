@@ -7,20 +7,20 @@ using AliaSQL.Infrastructure.DatabaseManager.DataAccess;
 namespace AliaSQL.Core.Services.Impl
 {
 	
-	public class SeedScriptExecutor : ISeedScriptExecutor
+	public class TestDataScriptExecutor : ITestDataScriptExecutor
 	{
 		private readonly IScriptExecutionTracker _executionTracker;
 		private readonly IQueryExecutor _executor;
 		private readonly IFileSystem _fileSystem;
 
-		public SeedScriptExecutor(IScriptExecutionTracker executionTracker, IQueryExecutor executor, IFileSystem fileSystem)
+		public TestDataScriptExecutor(IScriptExecutionTracker executionTracker, IQueryExecutor executor, IFileSystem fileSystem)
 		{
 			_executionTracker = executionTracker;
 			_executor = executor;
 			_fileSystem = fileSystem;
 		}
 
-	    public SeedScriptExecutor():this(new ScriptExecutionTracker(),new QueryExecutor(),new FileSystem())
+	    public TestDataScriptExecutor():this(new ScriptExecutionTracker(),new QueryExecutor(),new FileSystem())
 	    {
 	        
 	    }
@@ -29,7 +29,7 @@ namespace AliaSQL.Core.Services.Impl
 		{
 			string scriptFilename = getFilename(fullFilename);
 
-			if (_executionTracker.SeedScriptAlreadyExecuted(settings, scriptFilename))
+            if (_executionTracker.TestDataScriptAlreadyExecuted(settings, scriptFilename))
 			{
 				taskObserver.Log(string.Format("Skipping (already executed): {0}", scriptFilename));
 			}
@@ -37,8 +37,8 @@ namespace AliaSQL.Core.Services.Impl
 			{
 				taskObserver.Log(string.Format("Executing: {0}", scriptFilename));
 				string sql = _fileSystem.ReadTextFile(fullFilename);
-				_executor.ExecuteNonQuery(settings, sql, true);
-				_executionTracker.MarkSeedScriptAsExecuted(settings, scriptFilename, taskObserver);
+				_executor.ExecuteNonQueryTransactional(settings, sql);
+                _executionTracker.MarkTestDataScriptAsExecuted(settings, scriptFilename, taskObserver);
 			}
 		}
 

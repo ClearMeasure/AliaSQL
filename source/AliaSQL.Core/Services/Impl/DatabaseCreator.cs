@@ -23,7 +23,7 @@ namespace AliaSQL.Core.Services.Impl
 	    public void Execute(TaskAttributes taskAttributes, ITaskObserver taskObserver)
 		{
             string sql = string.Format("create database [{0}]", taskAttributes.ConnectionSettings.Database);
-            _queryExecutor.ExecuteNonQuery(taskAttributes.ConnectionSettings, sql, false);
+            _queryExecutor.ExecuteNonQuery(taskAttributes.ConnectionSettings, sql);
 
             _folderExecutor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
 		}

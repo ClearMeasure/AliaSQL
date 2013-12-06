@@ -29,16 +29,16 @@ namespace AliaSQL.Core.Services.Impl
 
 			string sql = _locator.ReadTextFile(assembly, sqlFile);
 
-			_executor.ExecuteNonQuery(settings, sql, true);
+			_executor.ExecuteNonQueryTransactional(settings, sql);
 		}
-        public void EnsureSeedSchemaCreated(ConnectionSettings settings)
+        public void EnsureTestDataSchemaCreated(ConnectionSettings settings)
         {
             string assembly = SqlDatabaseManager.SQL_FILE_ASSEMBLY;
-            string sqlFile = string.Format(SqlDatabaseManager.SQL_FILE_TEMPLATE, "CreateSeedSchema");
+            string sqlFile = string.Format(SqlDatabaseManager.SQL_FILE_TEMPLATE, "CreateTestDataSchema");
 
             string sql = _locator.ReadTextFile(assembly, sqlFile);
 
-            _executor.ExecuteNonQuery(settings, sql, true);
+            _executor.ExecuteNonQueryTransactional(settings, sql);
         }
 	}
 }

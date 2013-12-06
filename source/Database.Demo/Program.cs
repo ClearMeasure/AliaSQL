@@ -14,7 +14,7 @@ namespace Database
         static void Main()
         {
             // Change to your number of menuitems.
-            const int maxMenuItems = 5;
+            const int maxMenuItems = 6;
             var selector = 0;
             Console.Title = "AliaSQL Database Migrations Visual Studio Runner";
             while (selector != maxMenuItems)
@@ -37,6 +37,7 @@ namespace Database
                         case 2:
                         case 3:
                         case 4:
+                        case 5:
                             string cmdArguments = string.Format("{0} {1} {2} {3}", GetVerbForCase(selector), DbServer, databaseName, scriptspath);
                             p.StartInfo.FileName = deployerpath;
                             p.StartInfo.Arguments = cmdArguments;
@@ -81,11 +82,12 @@ namespace Database
             }
 
             Console.WriteLine(" ----------------------------------------------------------------------------");
-            Console.WriteLine(" 1. Rebuild");
-            Console.WriteLine(" 2. Update");
-            Console.WriteLine(" 3. Seed");
-            Console.WriteLine(" 4. Baseline");
-            Console.WriteLine(" 5. Exit program");
+            Console.WriteLine(" 1. Update"); 
+            Console.WriteLine(" 2. Create");
+            Console.WriteLine(" 3. Rebuild");
+            Console.WriteLine(" 4. TestData");
+            Console.WriteLine(" 5. Baseline");
+            Console.WriteLine(" 6. Exit program");
 
         }
 
@@ -114,12 +116,13 @@ namespace Database
         }
 
 
-        private static string GetVerbForCase(int selector)
+        private static string GetVerbForCase(int selector)   
         {
-            if (selector == 1) return "Rebuild";
-            if (selector == 2) return "Update";
-            if (selector == 3) return "Seed";
-            if (selector == 4) return "Baseline";
+            if (selector == 1) return "Update";
+            if (selector == 2) return "Create";
+            if (selector == 3) return "Rebuild";
+            if (selector == 4) return "TestData";
+            if (selector == 5) return "Baseline";
             throw new Exception("invalid selector");
         }
     }

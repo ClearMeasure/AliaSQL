@@ -23,7 +23,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
             var initializer = mocks.StrictMock<ISchemaInitializer>();
             var fileLocator = mocks.StrictMock<ISqlFileLocator>();
             var executor = mocks.StrictMock<IChangeScriptExecutor>();
-            var seedexecutor = mocks.StrictMock<ISeedScriptExecutor>();
+            var testdataexecutor = mocks.StrictMock<ITestDataScriptExecutor>();
             var versioner = mocks.StrictMock<IDatabaseVersioner>();
             var taskObserver = mocks.StrictMock<ITaskObserver>();
             var fileFilterService = mocks.StrictMock<IFileFilterService>();
@@ -41,7 +41,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 
 			using (mocks.Playback())
 			{
-                IScriptFolderExecutor folderExecutor = new ScriptFolderExecutor(initializer, fileLocator, executor, seedexecutor, versioner, fileFilterService);
+                IScriptFolderExecutor folderExecutor = new ScriptFolderExecutor(initializer, fileLocator, executor, testdataexecutor, versioner, fileFilterService);
 				folderExecutor.ExecuteScriptsInFolder(taskAttributes, "Update", taskObserver);
 			}
 
@@ -64,7 +64,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
             var initializer = mocks.StrictMock<ISchemaInitializer>();
             var fileLocator = mocks.StrictMock<ISqlFileLocator>();
             var executor = mocks.StrictMock<IChangeScriptExecutor>();
-            var seedexecutor = mocks.StrictMock<ISeedScriptExecutor>();
+            var testdataexecutor = mocks.StrictMock<ITestDataScriptExecutor>();
             var versioner = mocks.StrictMock<IDatabaseVersioner>();
             var taskObserver = mocks.StrictMock<ITaskObserver>();
             var fileFilterService = mocks.StrictMock<IFileFilterService>();
@@ -81,7 +81,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 
             using (mocks.Playback())
             {
-                IScriptFolderExecutor folderExecutor = new ScriptFolderExecutor(initializer, fileLocator, executor,seedexecutor, versioner, fileFilterService);
+                IScriptFolderExecutor folderExecutor = new ScriptFolderExecutor(initializer, fileLocator, executor,testdataexecutor, versioner, fileFilterService);
                 folderExecutor.ExecuteScriptsInFolder(taskAttributes, "Update", taskObserver);
             }
 

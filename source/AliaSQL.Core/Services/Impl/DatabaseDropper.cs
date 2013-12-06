@@ -27,7 +27,7 @@ namespace AliaSQL.Core.Services.Impl
 
 			try
 			{
-                _queryExecutor.ExecuteNonQuery(taskAttributes.ConnectionSettings, sql, false);
+                _queryExecutor.ExecuteNonQuery(taskAttributes.ConnectionSettings, sql);
 			}
 			catch(Exception)
 			{

@@ -22,7 +22,7 @@ namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
 			
 			using (mocks.Record())
 			{
-				queryExecutor.ExecuteNonQuery(settings, "create database [db]", false);
+				queryExecutor.ExecuteNonQuery(settings, "create database [db]");
 				executor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
 			}
 
