@@ -15,7 +15,7 @@ properties {
 	$package_dir = "$build_dir\package"	
 	$package_file = "$build_dir\latestVersion\" + $projectName +"_Package.zip"
 	$databaseServer = ".\sqlexpress"
-	$databaseScripts = "$source_dir\Database"
+	$databaseScripts = "$source_dir\Database.Demo"
 	$databaseName = "Demo"
 }
 
@@ -35,6 +35,8 @@ task Compile -depends Init {
 
     delete_file $error_dir
     msbuild /t:build /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln /p:VisualStudioVersion=12.0
+
+    ILMergeAndCopy
 }
 
 task Test {
@@ -72,13 +74,7 @@ task TestDataDatabase {
     exec { &  $AliaSQLPath\AliaSQL.exe TestData $databaseServer " $databaseName" "$databaseScripts\Scripts"}
 }
 
-task Package -depends Compile {
-    write-host "Clean package directory"
-    delete_directory $package_dir
-   
-    write-host "Copy newly compiled version of Database Deployer to package folder"
-	copy_files "$base_dir\source\AliaSQL.Console\Bin\Release" "$package_dir\AliaSQL" 
-	
+task Package -depends Compile {	
     write-host "Copy in database scripts"
     copy_files "$databaseScripts\scripts" "$package_dir\database\"
     write-host "Copy AliaSQL tool so scripts can be ran"
@@ -92,24 +88,32 @@ task Package -depends Compile {
 	zip_directory $package_dir $package_file 
 }
  
+
  task NugetPack -depends Package {
-  exec {
-    & $base_dir\lib\ilmerge.exe /target:exe /lib:C:\Windows\Microsoft.NET\Framework\v4.0.30319 /targetplatform:v4 /out:$package_dir\AliaSQL\AliaSQL.exe $package_dir\AliaSQL\AliaSQL.console.exe $package_dir\AliaSQL\AliaSQL.core.dll  
-    }
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.nuspec
     }
-    copy-item $package_dir\AliaSQL\AliaSQL.exe $base_dir\nuget\content\scripts\AliaSQL.exe -Force
-	
-	write-host "Copy newly compiled version of AliaSQL to Demo project"
-	copy-item $package_dir\AliaSQL\AliaSQL.exe $source_dir\Database.Demo\scripts\AliaSQL.exe -Force
-    write-host "Copy newly compiled version of AliaSQL to lib"
-	copy-item $package_dir\AliaSQL\AliaSQL.exe $source_dir\Database.Demo\scripts\AliaSQL.exe -Force
 	
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Kickstarter.nuspec
     }
 }
+
+  function global:ILMergeAndCopy {
+    write-host "ILMergeAndCopy"
+    write-host "Copy newly compiled version of Database Deployer to package folder"
+    copy_files "$base_dir\source\AliaSQL.Console\Bin\Release" "$package_dir\AliaSQL" 
+    exec {
+        & $base_dir\lib\ilmerge.exe /target:exe /lib:C:\Windows\Microsoft.NET\Framework\v4.0.30319 /targetplatform:v4 /out:$package_dir\AliaSQL\AliaSQL.exe $package_dir\AliaSQL\AliaSQL.console.exe $package_dir\AliaSQL\AliaSQL.core.dll  
+        }
+    write-host "Copy newly compiled version of AliaSQL to Nuget package folder"
+    copy-item $package_dir\AliaSQL\AliaSQL.exe $base_dir\nuget\content\scripts\AliaSQL.exe -Force
+	write-host "Copy newly compiled version of AliaSQL to Demo project"
+	copy-item $package_dir\AliaSQL\AliaSQL.exe $source_dir\Database.Demo\scripts\AliaSQL.exe -Force
+    write-host "Copy newly compiled version of AliaSQL to lib"
+	copy-item $package_dir\AliaSQL\AliaSQL.exe $base_dir\lib\AliaSQL\AliaSQL.exe -Force
+}
+
 
 function global:zip_directory($directory,$file) {
     write-host "Zipping folder: " $test_assembly
