@@ -5,7 +5,7 @@ AliaSQL is a command line tool for database deployments
 It depends on having a database scripts folder with these 3 folders:
 - Create
 - Update
-- Seed
+- TestData
 
 Example usage:
 
@@ -31,10 +31,10 @@ Logs to usd_AppliedDatabaseScript
 AliaSQL.exe Rebuild .\sqlexpress ./scripts  
 ```
 
-Run all scripts in Seed folder that has yet been ran - expects database to already exist.
-Logs to usd_AppliedDatabaseSeedScript
+Run all scripts in TestData folder that has yet been ran - expects database to already exist.
+Logs to usd_AppliedDatabaseTestDataScript
 ```dos
-AliaSQL.exe Seed .\sqlexpress ./scripts  
+AliaSQL.exe TestData .\sqlexpress ./scripts  
 ```
 
 Logs but does not execute all scripts in Create and Update folders that have not yet been ran - expects database to already exist. This is to add the usd_AppliedDatabaseScript table and a record of all scripts to a legacy database.
