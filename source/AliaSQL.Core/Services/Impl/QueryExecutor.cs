@@ -31,9 +31,10 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
         /// </summary>
         /// <param name="settings"></param>
         /// <param name="sql"></param>
-        public void ExecuteNonQuery(ConnectionSettings settings, string sql)
+        /// <param name="includeDatabaseName"></param>
+        public void ExecuteNonQuery(ConnectionSettings settings, string sql, bool includeDatabaseName = false)
         {
-            string connectionString = _connectionStringGenerator.GetConnectionString(settings, false);
+            string connectionString = _connectionStringGenerator.GetConnectionString(settings, includeDatabaseName);
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -62,6 +63,12 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
         /// <param name="sql"></param>
         public void ExecuteNonQueryTransactional(ConnectionSettings settings, string sql)
         {
+            if (!ScriptSupportsTransactions(sql))
+            {
+                ExecuteNonQuery(settings, sql, true);
+                return;
+            }
+                
             //do all this in a single transaction
             using (var scope = new TransactionScope())
             {
@@ -72,10 +79,7 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                     using (var command = new SqlCommand())
                     {
                         command.Connection = connection;
-
                         var scripts = SplitSqlStatements(sql);
-
-
                         foreach (var splitScript in scripts)
                         {
                             command.CommandText = splitScript;
@@ -170,6 +174,30 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                 result = false;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Some commands are not allowed inside transactions
+        /// http://msdn.microsoft.com/en-us/library/ms191544.aspx
+        /// </summary>
+        public bool ScriptSupportsTransactions(string sql)
+        {
+            if (sql.IndexOf("ALTER DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT INDEX ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("BACKUP ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT CATALOG", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RECONFIGURE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RESTORE ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+
+            //UPDATE STATISTICS can be used inside an explicit transaction. However, UPDATE STATISTICS commits independently of the enclosing transaction and cannot be rolled back.
+
+            return true;
         }
 
     }

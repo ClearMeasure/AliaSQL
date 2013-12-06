@@ -14,3 +14,4 @@ CREATE TABLE [dbo].[TestTable](
 ) ON [PRIMARY]
 
 GO
+
