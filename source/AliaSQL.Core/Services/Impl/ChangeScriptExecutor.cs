@@ -2,7 +2,6 @@
 using System.IO;
 using AliaSQL.Core.Model;
 using AliaSQL.Core;
-using AliaSQL.Infrastructure.DatabaseManager.DataAccess;
 
 namespace AliaSQL.Core.Services.Impl
 {
@@ -36,15 +35,23 @@ namespace AliaSQL.Core.Services.Impl
             }
             else
             {
-                taskObserver.Log(string.Format("Executing: {0}", scriptFilename));
                 if (!logOnly)
                 {
                     string sql = _fileSystem.ReadTextFile(fullFilename);
-                    _executor.ExecuteNonQueryTransactional(settings, sql);
+                    if (!ScriptSupportsTransactions(sql))
+                    {
+                        taskObserver.Log(string.Format("Executing: {0}", scriptFilename));
+                        _executor.ExecuteNonQuery(settings, sql, true);
+                    }
+                    else
+                    {
+                        taskObserver.Log(string.Format("Executing: {0} in a transaction", scriptFilename));
+                        _executor.ExecuteNonQueryTransactional(settings, sql); 
+                    }                 
                 }
                 else
                 {
-                    taskObserver.Log("Executed in log only mode");
+                    taskObserver.Log(string.Format("Executing: {0} in log only mode", scriptFilename));
                 }
 
                 _executionTracker.MarkScriptAsExecuted(settings, scriptFilename, taskObserver);
@@ -54,6 +61,29 @@ namespace AliaSQL.Core.Services.Impl
         private string getFilename(string fullFilename)
         {
             return Path.GetFileName(fullFilename);
+        }
+        /// <summary>
+        /// Some commands are not allowed inside transactions
+        /// http://msdn.microsoft.com/en-us/library/ms191544.aspx
+        /// </summary>
+        private bool ScriptSupportsTransactions(string sql)
+        {
+            if (sql.IndexOf("ALTER DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT INDEX ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("BACKUP ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT CATALOG", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RECONFIGURE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RESTORE ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+
+            //UPDATE STATISTICS can be used inside an explicit transaction. However, UPDATE STATISTICS commits independently of the enclosing transaction and cannot be rolled back.
+
+            return true;
         }
     }
 }

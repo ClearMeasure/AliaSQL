@@ -1,7 +1,6 @@
 ﻿using System;
 using AliaSQL.Core.Model;
 using AliaSQL.Core;
-using AliaSQL.Infrastructure.DatabaseManager.DataAccess;
 
 namespace AliaSQL.Core.Services.Impl
 {

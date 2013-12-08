@@ -56,16 +56,5 @@ namespace AliaSQL.UnitTests
 			Assert.That(message, Is.EqualTo("Drop db on server\n"));
 		}
 
-        [Test]
-        public void Creates_initial_log_message_for_database_create_while_skiping_some_files()
-        {
-            ILogMessageGenerator generator = new LogMessageGenerator();
-
-            var settings = new ConnectionSettings("server", "db", true, null, null);
-            var taskAttributes = new TaskAttributes(settings, "c:\\scripts") { SkipFileNameContaining = "_data_"};
-            string message = generator.GetInitialMessage(taskAttributes);
-
-            Assert.That(message, Is.EqualTo("Create db on server using scripts from c:\\scripts while skipping file containing _data_\n"));
-        }
 	}
 }

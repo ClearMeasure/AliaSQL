@@ -11,7 +11,6 @@ namespace AliaSQL.Core.Model
         }
 
         public ConnectionSettings ConnectionSettings { get; set; }
-        public string SkipFileNameContaining { get; set; }
         public string ScriptDirectory { get; set; }
         public RequestedDatabaseAction RequestedDatabaseAction { get; set; }
 

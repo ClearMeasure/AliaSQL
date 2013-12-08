@@ -12,18 +12,16 @@ namespace AliaSQL.Core.Services.Impl
 		private readonly IChangeScriptExecutor _scriptExecutor;
         private readonly ITestDataScriptExecutor _testDataScriptExecutor;
 		private readonly IDatabaseVersioner _versioner;
-	    private readonly IFileFilterService _fileFilterService;
-		public ScriptFolderExecutor(ISchemaInitializer schemaInitializer, ISqlFileLocator fileLocator, IChangeScriptExecutor scriptExecutor, ITestDataScriptExecutor testDataScriptExecutor, IDatabaseVersioner versioner, IFileFilterService fileFilterService)
+		public ScriptFolderExecutor(ISchemaInitializer schemaInitializer, ISqlFileLocator fileLocator, IChangeScriptExecutor scriptExecutor, ITestDataScriptExecutor testDataScriptExecutor, IDatabaseVersioner versioner)
 		{
 			_schemaInitializer = schemaInitializer;
-		    _fileFilterService = fileFilterService;
 		    _fileLocator = fileLocator;
 			_scriptExecutor = scriptExecutor;
 		    _testDataScriptExecutor = testDataScriptExecutor;
 			_versioner = versioner;
 		}
 
-	    public ScriptFolderExecutor():this(new SchemaInitializer(),new SqlFileLocator(),new ChangeScriptExecutor(), new TestDataScriptExecutor(), new DatabaseVersioner(),new FileFilterService())
+	    public ScriptFolderExecutor():this(new SchemaInitializer(),new SqlFileLocator(),new ChangeScriptExecutor(), new TestDataScriptExecutor(), new DatabaseVersioner())
 	    {
 	        
 	    }
@@ -33,10 +31,8 @@ namespace AliaSQL.Core.Services.Impl
             _schemaInitializer.EnsureSchemaCreated(taskAttributes.ConnectionSettings);
             
             var sqlFilenames = _fileLocator.GetSqlFilenames(taskAttributes.ScriptDirectory, scriptDirectory);
-            
-            var filteredFilenames = _fileFilterService.GetFilteredFilenames(sqlFilenames, taskAttributes.SkipFileNameContaining);
-            
-			foreach (string sqlFilename in filteredFilenames)
+                        
+			foreach (string sqlFilename in sqlFilenames)
 			{
                 _scriptExecutor.Execute(sqlFilename, taskAttributes.ConnectionSettings, taskObserver, taskAttributes.LogOnly);
 			}
@@ -50,12 +46,11 @@ namespace AliaSQL.Core.Services.Impl
 
             var sqlFilenames = _fileLocator.GetSqlFilenames(taskAttributes.ScriptDirectory, scriptDirectory);
 
-            var filteredFilenames = _fileFilterService.GetFilteredFilenames(sqlFilenames, taskAttributes.SkipFileNameContaining);
-
-            foreach (string sqlFilename in filteredFilenames)
+            foreach (string sqlFilename in sqlFilenames)
             {
                 _testDataScriptExecutor.Execute(sqlFilename, taskAttributes.ConnectionSettings, taskObserver);
             }
         }
+
 	}
 }

@@ -4,11 +4,9 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Transactions;
-using AliaSQL.Core.Services;
-using AliaSQL.Core.Services.Impl;
-using ConnectionSettings = AliaSQL.Core.Model.ConnectionSettings;
+using AliaSQL.Core.Model;
 
-namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
+namespace AliaSQL.Core.Services.Impl
 {
 
     public class QueryExecutor : IQueryExecutor
@@ -72,12 +70,6 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
         /// <param name="sql"></param>
         public void ExecuteNonQueryTransactional(ConnectionSettings settings, string sql)
         {
-            if (!ScriptSupportsTransactions(sql))
-            {
-                ExecuteNonQuery(settings, sql, true);
-                return;
-            }
-
             //do all this in a single transaction
             using (var scope = new TransactionScope())
             {
@@ -193,29 +185,6 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
             return result;
         }
 
-        /// <summary>
-        /// Some commands are not allowed inside transactions
-        /// http://msdn.microsoft.com/en-us/library/ms191544.aspx
-        /// </summary>
-        public bool ScriptSupportsTransactions(string sql)
-        {
-            if (sql.IndexOf("ALTER DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("ALTER FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("ALTER FULLTEXT INDEX ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("BACKUP ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("CREATE DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("CREATE FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("CREATE FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("DROP DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("DROP FULLTEXT CATALOG", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("DROP FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("RECONFIGURE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-            if (sql.IndexOf("RESTORE ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-
-            //UPDATE STATISTICS can be used inside an explicit transaction. However, UPDATE STATISTICS commits independently of the enclosing transaction and cannot be rolled back.
-
-            return true;
-        }
 
     }
 }

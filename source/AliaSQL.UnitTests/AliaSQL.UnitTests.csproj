@@ -82,13 +82,14 @@
     <Compile Include="ConnectionStringGeneratorTester.cs" />
     <Compile Include="DatabaseActionExecutorFactoryTester.cs" />
     <Compile Include="DatabaseActionResolverTester.cs" />
+    <Compile Include="DatabaseTestDataTester.cs" />
     <Compile Include="DatabaseConnectionDropperTester.cs" />
     <Compile Include="DatabaseCreatorTester.cs" />
     <Compile Include="DatabaseDropperTester.cs" />
+    <Compile Include="DatabaseBaselinerTester.cs" />
     <Compile Include="DatabaseUpdaterTester.cs" />
     <Compile Include="DatabaseVersionerTester.cs" />
     <Compile Include="EnumerableAssert.cs" />
-    <Compile Include="FileFilterServiceTester.cs" />
     <Compile Include="LogMessageGeneratorTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchemaInitializerTester.cs" />

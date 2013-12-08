@@ -19,7 +19,7 @@ Logs to usd_AppliedDatabaseScript
 AliaSQL.exe Create .\sqlexpress ./scripts  
 ```
 
-Run all scripts in Create and Update folders that have not yet been ran - expects database to already exist.
+Run all scripts in Create and Update folders that have not yet been ran. If target database does not already exist it will be created. 
 Logs to usd_AppliedDatabaseScript
 ```dos
 AliaSQL.exe Update .\sqlexpress ./scripts  
@@ -31,13 +31,13 @@ Logs to usd_AppliedDatabaseScript
 AliaSQL.exe Rebuild .\sqlexpress ./scripts  
 ```
 
-Run all scripts in TestData folder that has yet been ran - expects database to already exist.
+Run all scripts in TestData folder that have not yet been ran - expects target database to already exist.
 Logs to usd_AppliedDatabaseTestDataScript
 ```dos
 AliaSQL.exe TestData .\sqlexpress ./scripts  
 ```
 
-Logs but does not execute all scripts in Create and Update folders that have not yet been ran - expects database to already exist. This is to add the usd_AppliedDatabaseScript table and a record of all scripts to a legacy database.
+Logs (but does not execute) all scripts in Create and Update folders that have not yet been ran - expects database to already exist. This adds the usd_AppliedDatabaseScript table and a record of all scripts to an existing database.
 Logs to usd_AppliedDatabaseScript
 ```dos
 AliaSQL.exe Baseline .\sqlexpress ./scripts  
@@ -51,6 +51,10 @@ I posted some details on why I did this on our office blog at http://sharpcoders
 Install it via Nuget at *Coming Soon* or download it via Github releases at https://github.com/ericdc1/AliaSQL/releases
 
 I like to create a console application in my solution that contains the Create/Update/Seed folders and a simple program to execute AliaSQL.exe from Visual Studio. Here is an example of this https://github.com/ericdc1/AliaSQL/blob/master/source/Database.Demo/Program.cs  There is a Nuget package that will set it up with the necessary folders and the program in a (hopefully empty) console application to make this as easy as possible.
+
+There is an example database console application with sample scripts available in the source. It includes helper batch files to Rebuild, Update, and populate Test Data to the Demo database.  
+
+There is also a database diff batch file that will compare the Demo database against the current set of Create and Update scripts and will generate a .sql file with the schema changes. Redgate SQL Compare is the better choice but this is free using SQLPackage.exe that comes with SQL Server Express. 
 
 Nuget package: *Coming Soon*
 

@@ -15,9 +15,11 @@ namespace AliaSQL.UnitTests
 
 			IResourceFileLocator locator = new ResourceFileLocator();
 
-			Assert.That(locator.FileExists(assembly, string.Format(template, "CreateSchema")));
+            Assert.That(locator.FileExists(assembly, string.Format(template, "CreateSchema")));
+            Assert.That(locator.FileExists(assembly, string.Format(template, "CreateTestDataSchema")));
 			Assert.That(locator.FileExists(assembly, string.Format(template, "DropConnections")));
 			Assert.That(locator.FileExists(assembly, string.Format(template, "VersionDatabase")));
+
 		}
 	}
 }

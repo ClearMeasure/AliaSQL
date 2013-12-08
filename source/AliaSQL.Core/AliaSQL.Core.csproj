@@ -72,7 +72,6 @@
     <Compile Include="Services\IDatabaseActionResolver.cs" />
     <Compile Include="Services\IDatabaseConnectionDropper.cs" />
     <Compile Include="Services\IDatabaseVersioner.cs" />
-    <Compile Include="Services\IFileFilterService.cs" />
     <Compile Include="Services\ILogMessageGenerator.cs" />
     <Compile Include="Services\Impl\TestDataScriptExecutor.cs" />
     <Compile Include="Services\Impl\ChangeScriptExecutor.cs" />
@@ -86,7 +85,6 @@
     <Compile Include="Services\Impl\DatabaseTestData.cs" />
     <Compile Include="Services\Impl\DatabaseUpdater.cs" />
     <Compile Include="Services\Impl\DatabaseVersioner.cs" />
-    <Compile Include="Services\Impl\FileFilterService.cs" />
     <Compile Include="Services\Impl\IDataBaseActionLocator.cs" />
     <Compile Include="Services\Impl\LogMessageGenerator.cs" />
     <Compile Include="Services\Impl\QueryExecutor.cs" />
