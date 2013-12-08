@@ -1,7 +1,7 @@
-using NUnit.Framework;
 using AliaSQL.Core.Model;
+using NUnit.Framework;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Model
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class ConnectionSettingsTester

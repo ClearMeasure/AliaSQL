@@ -4,7 +4,7 @@ using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class ScriptExecutionTrackerTester

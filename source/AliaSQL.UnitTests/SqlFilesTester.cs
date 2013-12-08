@@ -1,9 +1,8 @@
+using AliaSQL.Core;
+using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 
-using AliaSQL.Core.Services.Impl;
-using AliaSQL.Core;
-
-namespace AliaSQL.IntegrationTests.Core.DatabaseManager
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class SqlFilesTester

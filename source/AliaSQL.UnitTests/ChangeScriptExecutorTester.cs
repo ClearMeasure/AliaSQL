@@ -1,12 +1,12 @@
 using System;
+using AliaSQL.Core;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 using Rhino.Mocks;
-using AliaSQL.Core;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class ChangeScriptExecutorTester

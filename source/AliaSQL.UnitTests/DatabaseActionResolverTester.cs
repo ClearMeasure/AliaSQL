@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
 using AliaSQL.Core.Services.Impl.AliaSQL.Core.Services.Impl;
+using NUnit.Framework;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class DatabaseActionResolverTester

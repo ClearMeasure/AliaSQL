@@ -52,6 +52,8 @@ namespace AliaSQL.Console
                 do
                 {
                     Log("Failure: " + ex.Message);
+                    if (ex.Data["Custom"] != null)
+                        Log(ex.Data["Custom"].ToString());
                     ex = ex.InnerException;
                 } while (ex != null);
 

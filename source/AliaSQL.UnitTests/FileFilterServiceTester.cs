@@ -1,7 +1,7 @@
-using NUnit.Framework;
 using AliaSQL.Core.Services.Impl;
+using NUnit.Framework;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
+namespace AliaSQL.UnitTests
 {
     [TestFixture]
     public class FileFilterServiceTester

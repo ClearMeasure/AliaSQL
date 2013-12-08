@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using Rhino.Mocks;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
 using AliaSQL.Core.Services.Impl.AliaSQL.Core.Services.Impl;
-using AliaSQL.Core;
+using NUnit.Framework;
+using Rhino.Mocks;
 
-namespace AliaSQL.UnitTests.Core.DatabaseManager.Services
+namespace AliaSQL.UnitTests
 {
 	[TestFixture]
 	public class DatabaseActionExecutorFactoryTester

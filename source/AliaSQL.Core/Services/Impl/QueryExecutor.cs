@@ -49,7 +49,16 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                     foreach (var splitScript in scripts)
                     {
                         command.CommandText = splitScript;
-                        command.ExecuteNonQuery();
+                        try
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                        catch (Exception ex)
+                        {
+                            ex.Data.Add("Custom","Erroring script was not run in a transaction and may be partially committed.");
+                            throw ex;
+                        }
+
                     }
                 }
             }
@@ -68,7 +77,7 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                 ExecuteNonQuery(settings, sql, true);
                 return;
             }
-                
+
             //do all this in a single transaction
             using (var scope = new TransactionScope())
             {
@@ -83,7 +92,15 @@ namespace AliaSQL.Infrastructure.DatabaseManager.DataAccess
                         foreach (var splitScript in scripts)
                         {
                             command.CommandText = splitScript;
-                            command.ExecuteNonQuery();
+                            try
+                            {
+                                command.ExecuteNonQuery();
+                            }
+                            catch (Exception ex)
+                            {
+                                ex.Data.Add("Custom", "Erroring script was run in a transaction and was rolled back.");
+                                throw ex;
+                            }
                         }
                     }
                     scope.Complete();
