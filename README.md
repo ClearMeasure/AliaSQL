@@ -19,3 +19,15 @@ Where can I get it?
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install AutoMapper from the package manager console:
 
     PM> Install-Package AliaSQL
+    
+The latest compiled version can be found here: https://github.com/ericdc1/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
+
+What else needs done?
+---------------------
+- I considered the idea of "Everytime Scripts" for things like Stored Procedures, Views, and Triggers but I don't need this myself. If you have this need feel free to submit a pull request. 
+- More unit tests need written around Baseline, TestData, and Update
+- There are likely some additional things in SQL scripts that will fail when running in a transaction but aren't on [Microsoft' list of commands not supported in transactions](http://msdn.microsoft.com/en-us/library/ms191544.aspx) such as "sp_fulltext_database". These need identified and handled on as case by case basis. In the mean time you can add a comment in your SQL script with one of the reserved words like this to force the script to run in nontransactional mode.
+
+```sql
+     --ALTER DATABASE
+```
