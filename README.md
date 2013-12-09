@@ -16,14 +16,17 @@ Check out the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Ge
 
 Where can I get it?
 --------------------------------
-First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install AliaSQL from the package manager console:
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
+
+    
+It is recommended to start with the AliaSQL Kickstarter that creates the Create, Update, and TestData folders and provides the Visual Studio runner, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
+
+    PM> Install-Package AliaSQL.Kickstarter
+
+To get the the AliaSQL.exe tool by itself install AliaAQL from the package manager console:
 
     PM> Install-Package AliaSQL
-    
-To use the Visual Studio console runner, create an empty C# console app then install AliaSQL.KickStarter from the package manager console:
 
-    PM> Install-Package AliaSQL.KickStarter
-    
 The latest compiled version can be found here: https://github.com/ericdc1/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
 
 What else needs done?
