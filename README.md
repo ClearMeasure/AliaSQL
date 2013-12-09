@@ -6,15 +6,15 @@ AliaSQL is a command line tool for database deployments.
 
 How do I get started?
 --------------------------------
-Check out the [wiki](https://github.com/ericdc1/AliaSQL/wiki/) for some background information.
 
 Check out the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Getting-started).
+
+Check out the [wiki for some background information](https://github.com/ericdc1/AliaSQL/wiki/).
 
 Where can I get it?
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
 
-    
 It is recommended to start with the AliaSQL Kickstarter that creates the Create, Update, and TestData folders and provides the Visual Studio runner, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
 
     PM> Install-Package AliaSQL.Kickstarter
