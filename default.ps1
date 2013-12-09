@@ -1,13 +1,13 @@
 properties {
 	$projectName = "AliaSQL" 
-    $version = "1.0.2"
+    $version = "1.0.3"
 
     $version = $version + "." + (get-date -format "MMdd")  
 	$projectConfig = "Release"
 	$base_dir = resolve-path .
 	$source_dir = "$base_dir\source"
     $unitTestAssembly = "$projectName.UnitTests.dll"
-    $nunitPath = "$source_dir\packages\NUnit.Runners.2.6.3\tools\"
+    $nunitPath = "$source_dir\packages\NUnit.Runners.2.6.3\tools\nunit-console-x86.exe"
     $AliaSQLPath = "$base_dir\lib\AliaSQL\AliaSQL.exe"
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
@@ -41,12 +41,12 @@ task Compile -depends Init {
 }
 
 task Test {
-    if (Test-Path  ("$nunitPath\nunit-console-x86.exe")){
+    if (Test-Path  ("$nunitPath")){
         copy_all_assemblies_for_test $test_dir
         if (Test-Path  ("$test_dir\$unitTestAssembly")){
             write-host "Testing $unitTestAssembly"
 	        exec {
-		        & $nunitPath\nunit-console-x86.exe $test_dir\$unitTestAssembly /xml $build_dir\UnitTestResult.xml    
+		        & $nunitPath $test_dir\$unitTestAssembly /xml $build_dir\UnitTestResult.xml    
 	        }
         }
         else
@@ -55,7 +55,7 @@ task Test {
         }
     }
     else{
-      write-host "Cannot run tests as $nunitPath\nunit.console.clr4.exe is MISSING"
+      write-host "Cannot run tests as $nunitPath is MISSING"
     }
 }
 

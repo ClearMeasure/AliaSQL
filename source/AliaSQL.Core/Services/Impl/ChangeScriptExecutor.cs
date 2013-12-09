@@ -80,8 +80,14 @@ namespace AliaSQL.Core.Services.Impl
             if (sql.IndexOf("DROP FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
             if (sql.IndexOf("RECONFIGURE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
             if (sql.IndexOf("RESTORE ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
-
             //UPDATE STATISTICS can be used inside an explicit transaction. However, UPDATE STATISTICS commits independently of the enclosing transaction and cannot be rolled back.
+
+            //Many system stored procedures can't run in a transaction such as sp_fulltext_database
+            //More can be added here as they are discovered
+            if (sql.IndexOf("sp_fulltext_database", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+
+            //manual override of transactions
+            if (sql.IndexOf("--NOTRANSACTION", StringComparison.OrdinalIgnoreCase) >= 0) return false;
 
             return true;
         }
