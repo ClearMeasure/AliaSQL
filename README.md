@@ -16,9 +16,13 @@ Check out the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Ge
 
 Where can I get it?
 --------------------------------
-First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install AutoMapper from the package manager console:
+First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget). Then, install AliaSQL from the package manager console:
 
     PM> Install-Package AliaSQL
+    
+To use the Visual Studio console runner, create an empty C# console app then install AliaSQL.KickStarter from the package manager console:
+
+    PM> Install-Package AliaSQL.KickStarter
     
 The latest compiled version can be found here: https://github.com/ericdc1/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
 
