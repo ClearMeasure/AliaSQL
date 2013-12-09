@@ -8,11 +8,11 @@ namespace AliaSQL.Console
 {
     public class Program
     {
-       
+
         private static void Main(string[] args)
         {
             System.Console.Title = "AliaSQL Database Deployment Tool"; 
-            if (args.Length != 4 && args.Length != 6)
+            if ((args.Length != 4 && args.Length != 6) ||  !Enum.IsDefined(typeof(RequestedDatabaseAction), args[0]))
             {
                 InvalidArguments();
                 return;
@@ -21,7 +21,6 @@ namespace AliaSQL.Console
             ConnectionSettings settings = null;
 
             var deployer = new ConsoleAliaSQL();
-
             var action = (RequestedDatabaseAction)Enum.Parse(typeof(RequestedDatabaseAction), args[0]);
             string server = args[1];
             string database = args[2];
