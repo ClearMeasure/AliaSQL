@@ -2,7 +2,7 @@
 
 What is AliaSQL?
 --------------------------------
-AliaSQL is a command line tool for database deployments. 
+AliaSQL is a command line tool for database deployments. It is a drop in replacement for [Tarantino](https://github.com/HeadspringLabs/Tarantino) with some additional features. 
 
 How do I get started?
 --------------------------------
