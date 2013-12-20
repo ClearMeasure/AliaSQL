@@ -4,14 +4,14 @@
     <id>AliaSQL.Kickstarter</id>
     <version>1.0.0.0</version>
     <title>AliaSQL Kickstarter</title>
-    <authors>Eric Coffman</authors>
-    <owners>Eric Coffman</owners>
+    <authors>Eric Coffman & Jeffrey Palermo</authors>
+    <owners>Eric Coffman & Jeffrey Palermo</owners>
     <licenseUrl>http://github.com/ericdc1/AliaSQL/license.txt</licenseUrl>
     <projectUrl>http://github.com/ericdc1/AliaSQL</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Visual Studio kickstarter for AliaSQL</description>
     <summary>Add this package to an empty console application. It is recommended to name the project the same as the target database name prefixed with the word 'Database' such as 'Database.AdventureWorks'. If your project has multiple databases create one console application per database.</summary>
-    <tags>Database, change management</tags>
+    <tags>Database, change management, tarantino, migration, migrations, deploy, deployer</tags>
     <iconUrl>https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL-200x200.png</iconUrl>
     <frameworkAssemblies>
     	<frameworkAssembly assemblyName="System.Configuration" />
