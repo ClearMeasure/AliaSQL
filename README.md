@@ -11,6 +11,8 @@ Check out the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Ge
 
 Check out the [wiki for some background information](https://github.com/ericdc1/AliaSQL/wiki/).
 
+Read the blog posts [here](http://sharpcoders.org/post/Introducing-AliaSQL) and [here](http://jeffreypalermo.com/blog/aliasql-the-new-name-in-automated-database-change-management/).
+
 Where can I get it?
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).

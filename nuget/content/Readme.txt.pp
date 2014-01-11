@@ -9,7 +9,7 @@ Place schema creation scripts in the "Scripts/Update" folder named with a numeri
 0001-InitialSchema.sql
 0002-AddUserTable.sql
 
-Place seed data scripts in the "Scripts/Seed" folder named with a numeric prefix in the order you want them to run.
+Place test data scripts in the "Scripts/TestData" folder named with a numeric prefix in the order you want them to run.
 
 0001-SampleUsers.sql
 0002-SampleRoles.sql
