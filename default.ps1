@@ -13,7 +13,7 @@ properties {
 	$test_dir = "$build_dir\test"
 	$testCopyIgnorePath = "_ReSharper"
 	$package_dir = "$build_dir\package"	
-	$package_file = "$build_dir\latestVersion\" + $projectName +"_Package.zip"
+	$package_file = "$build_dir\latest\" + $projectName +"_Package.zip"
 	$databaseServer = ".\sqlexpress"
 	$databaseScripts = "$source_dir\Database.Demo"
 	$databaseName = "Demo"
@@ -32,10 +32,9 @@ task Init {
 
 task Compile -depends Init {
     exec { & $source_dir\.nuget\nuget.exe restore  $source_dir\$projectName.sln }  
-    msbuild /t:clean /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln /p:VisualStudioVersion=12.0
+    exec { msbuild /t:clean /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln /p:VisualStudioVersion=12.0 } 
 
-    delete_file $error_dir
-    msbuild /t:build /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln /p:VisualStudioVersion=12.0
+    exec { msbuild /t:build /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln /p:VisualStudioVersion=12.0 } 
 
     ILMergeAndCopy
 }
@@ -102,7 +101,7 @@ task Package -depends Compile {
 
   function global:ILMergeAndCopy {
     write-host "ILMergeAndCopy"
-    write-host "Copy newly compiled version of Database Deployer to package folder"
+    write-host "Copy newly compiled version of AliaSQL to package folder"
     copy_files "$base_dir\source\AliaSQL.Console\Bin\Release" "$package_dir\AliaSQL" 
     exec {
         & $base_dir\lib\ilmerge.exe /target:exe /lib:C:\Windows\Microsoft.NET\Framework\v4.0.30319 /targetplatform:v4 /out:$package_dir\AliaSQL\AliaSQL.exe $package_dir\AliaSQL\AliaSQL.console.exe $package_dir\AliaSQL\AliaSQL.core.dll  
