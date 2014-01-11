@@ -4,8 +4,8 @@
     <id>AliaSQL.Kickstarter</id>
     <version>1.0.0.0</version>
     <title>AliaSQL Kickstarter</title>
-    <authors>Eric Coffman & Jeffrey Palermo</authors>
-    <owners>Eric Coffman & Jeffrey Palermo</owners>
+    <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
+    <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
     <licenseUrl>http://github.com/ericdc1/AliaSQL/license.txt</licenseUrl>
     <projectUrl>http://github.com/ericdc1/AliaSQL</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

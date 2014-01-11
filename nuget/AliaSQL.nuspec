@@ -4,13 +4,13 @@
     <id>AliaSQL</id>
     <version>1.0.0.0</version>
     <title>AliaSQL</title>
-    <authors>Eric Coffman & Jeffrey Palermo</authors>
-    <owners>Eric Coffman & Jeffrey Palermo</owners>
+    <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
+    <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
     <licenseUrl>http://github.com/ericdc1/AliaSQL/license.txt</licenseUrl>
     <projectUrl>http://github.com/ericdc1/AliaSQL</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Command line database change management tool.  And a drop-in replacement for the Tarantino database deployer.</description>
-    <summary>Works with SQL Server 2005-2012</summary>
+    <summary>Command line database change management tool that is a drop in replacement for Tarantino. Works with SQL Server 2005-2012</summary>
     <tags>Database, change management, tarantino, migration, migrations, deploy, deployer</tags>
     <iconUrl>https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL-200x200.png</iconUrl>
     <frameworkAssemblies>
