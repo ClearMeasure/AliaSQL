@@ -16,3 +16,10 @@ if not exists (select 1 from dbo.sysobjects where name = 'usd_AppliedDatabaseScr
 	)
 
 end
+
+IF COL_LENGTH('usd_AppliedDatabaseScript', 'hash') IS NULL
+BEGIN
+
+        ALTER TABLE usd_AppliedDatabaseScript
+        ADD hash nvarchar(32)
+END

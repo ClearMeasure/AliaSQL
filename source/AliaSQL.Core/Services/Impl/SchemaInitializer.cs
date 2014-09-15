@@ -25,10 +25,10 @@ namespace AliaSQL.Core.Services.Impl
 		{
 			string assembly = SqlDatabaseManager.SQL_FILE_ASSEMBLY;
 			string sqlFile = string.Format(SqlDatabaseManager.SQL_FILE_TEMPLATE, "CreateSchema");
-
 			string sql = _locator.ReadTextFile(assembly, sqlFile);
 
 			_executor.ExecuteNonQueryTransactional(settings, sql);
+
 		}
         public void EnsureTestDataSchemaCreated(ConnectionSettings settings)
         {

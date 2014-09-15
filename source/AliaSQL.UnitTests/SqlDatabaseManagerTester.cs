@@ -15,7 +15,7 @@ namespace AliaSQL.UnitTests
 			var settings = new ConnectionSettings("server", "db", true, null, null);
             var scriptDirectory = @"c:\scripts"; 
             var taskAttributes = new TaskAttributes(settings, scriptDirectory);
-
+            taskAttributes.RequestedDatabaseAction= RequestedDatabaseAction.Create;
 			var mocks = new MockRepository();
 			var taskObserver = mocks.StrictMock<ITaskObserver>();
             var generator = mocks.StrictMock<ILogMessageGenerator>();

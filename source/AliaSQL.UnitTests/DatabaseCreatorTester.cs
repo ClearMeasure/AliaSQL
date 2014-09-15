@@ -1,3 +1,4 @@
+using System;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
@@ -14,7 +15,7 @@ namespace AliaSQL.UnitTests
 		{
 			var settings = new ConnectionSettings("server", "db", true, null, null);
             var taskAttributes = new TaskAttributes(settings, "c:\\scripts");
-
+            taskAttributes.RequestedDatabaseAction= RequestedDatabaseAction.Create;
 			var mocks = new MockRepository();
             var queryExecutor = mocks.StrictMock<IQueryExecutor>();
             var executor = mocks.StrictMock<IScriptFolderExecutor>();
@@ -23,6 +24,7 @@ namespace AliaSQL.UnitTests
 			using (mocks.Record())
 			{
 				queryExecutor.ExecuteNonQuery(settings, "create database [db]");
+                taskObserver.Log(string.Format("Run scripts in Create folder."));
 				executor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
 			}
 

@@ -27,6 +27,7 @@ namespace AliaSQL.UnitTests
 
 			var settings = new ConnectionSettings("server", "db", true, null, null);
             var taskAttributes = new TaskAttributes(settings, "c:\\scripts");
+            taskAttributes.RequestedDatabaseAction= RequestedDatabaseAction.Create;
 			string message = generator.GetInitialMessage(taskAttributes);
 
 			Assert.That(message, Is.EqualTo("Create db on server using scripts from c:\\scripts\n"));

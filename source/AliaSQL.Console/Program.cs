@@ -11,8 +11,10 @@ namespace AliaSQL.Console
 
         private static void Main(string[] args)
         {
-            System.Console.Title = "AliaSQL Database Deployment Tool"; 
-            if ((args.Length != 4 && args.Length != 6) ||  !Enum.IsDefined(typeof(RequestedDatabaseAction), args[0]))
+            System.Console.Title = "AliaSQL Database Deployment Tool";
+            RequestedDatabaseAction requestedDatabaseAction = RequestedDatabaseAction.Default;
+            if(args.Length>0) Enum.TryParse(args[0], true, out requestedDatabaseAction);
+            if ((args.Length != 4 && args.Length != 6) || requestedDatabaseAction==RequestedDatabaseAction.Default)
             {
                 InvalidArguments();
                 return;
@@ -21,7 +23,7 @@ namespace AliaSQL.Console
             ConnectionSettings settings = null;
 
             var deployer = new ConsoleAliaSQL();
-            var action = (RequestedDatabaseAction)Enum.Parse(typeof(RequestedDatabaseAction), args[0]);
+            var action = requestedDatabaseAction;
             string server = args[1];
             string database = args[2];
             string scriptDirectory = args[3];
@@ -54,9 +56,9 @@ namespace AliaSQL.Console
         {
             System.Console.WriteLine("Invalid Arguments");
             System.Console.WriteLine(" ");
-            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ ");
+            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline|Drop) .\SqlExpress DatabaseName  .\DatabaseScripts\ ");
             System.Console.WriteLine(Environment.NewLine + "-- or --"+ Environment.NewLine);
-            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline) .\SqlExpress DatabaseName  .\DatabaseScripts\ Username Password");
+            System.Console.WriteLine( Path.GetFileName(typeof(Program).Assembly.Location) + @" Action(Create|Update|Rebuild|TestData|Baseline|Drop) .\SqlExpress DatabaseName  .\DatabaseScripts\ Username Password");
             System.Console.WriteLine(Environment.NewLine + "---------------------------------------------" + Environment.NewLine);           
             System.Console.WriteLine("Create - Creates database and runs scripts in 'Create' and 'Update' folders.");
             System.Console.WriteLine(" ");
@@ -67,6 +69,8 @@ namespace AliaSQL.Console
             System.Console.WriteLine("TestData - Runs scripts in 'TestData' folder. Database must already exist. Seed scripts are logged separate from Create and Update scripts.");
             System.Console.WriteLine(" "); 
             System.Console.WriteLine("Baseline - Creates usd_AppliedDatabaseScripts table and logs all current scripts in 'Create' and 'Update' folders as applied without actually running them.");
+            System.Console.WriteLine(" ");
+            System.Console.WriteLine("Drop - Drops the database");
 
             if (Debugger.IsAttached)
                 System.Console.ReadLine();

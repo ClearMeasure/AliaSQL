@@ -1,3 +1,4 @@
+using System;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;
@@ -60,7 +61,7 @@ namespace AliaSQL.UnitTests
 			MockRepository mocks = new MockRepository();
             IQueryExecutor queryExecutor = mocks.StrictMock<IQueryExecutor>();
             ITaskObserver observer = mocks.StrictMock<ITaskObserver>();
-			queryExecutor.ExecuteNonQueryTransactional(settings, "insert into usd_AppliedDatabaseScript (ScriptFile, DateApplied) values ('03_Test.sql', getdate())");
+			queryExecutor.ExecuteNonQueryTransactional(settings, "insert into usd_AppliedDatabaseScript (ScriptFile, DateApplied, hash) values ('03_Test.sql', getdate(), '')");
 
 			mocks.ReplayAll();
 
@@ -69,5 +70,6 @@ namespace AliaSQL.UnitTests
 
 			mocks.VerifyAll();
 		}
+
 	}
 }

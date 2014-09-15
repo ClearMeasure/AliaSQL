@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using AliaSQL.Core.Model;
 using AliaSQL.Core;
 
@@ -28,10 +29,9 @@ namespace AliaSQL.Core.Services.Impl
         public void Execute(string fullFilename, ConnectionSettings settings, ITaskObserver taskObserver, bool logOnly = false)
         {
             string scriptFilename = getFilename(fullFilename);
-
             if (_executionTracker.ScriptAlreadyExecuted(settings, scriptFilename))
             {
-                taskObserver.Log(string.Format("Skipping (already executed): {0}", scriptFilename));
+                taskObserver.Log(string.Format("Skipping (already executed): {0}{1}", getLastFolderName(fullFilename),scriptFilename));
             }
             else
             {
@@ -40,28 +40,77 @@ namespace AliaSQL.Core.Services.Impl
                     string sql = _fileSystem.ReadTextFile(fullFilename);
                     if (!ScriptSupportsTransactions(sql))
                     {
-                        taskObserver.Log(string.Format("Executing: {0}", scriptFilename));
+                        taskObserver.Log(string.Format("Executing: {0}{1}", getLastFolderName(fullFilename),scriptFilename));
                         _executor.ExecuteNonQuery(settings, sql, true);
                     }
                     else
                     {
-                        taskObserver.Log(string.Format("Executing: {0} in a transaction", scriptFilename));
-                        _executor.ExecuteNonQueryTransactional(settings, sql); 
-                    }                 
+                        taskObserver.Log(string.Format("Executing: {0}{1} in a transaction", getLastFolderName(fullFilename),scriptFilename));
+                        _executor.ExecuteNonQueryTransactional(settings, sql);
+                    }
                 }
                 else
                 {
-                    taskObserver.Log(string.Format("Executing: {0} in log only mode", scriptFilename));
+                    taskObserver.Log(string.Format("Executing: {0}{1} in log only mode",getLastFolderName(fullFilename), scriptFilename));
                 }
 
                 _executionTracker.MarkScriptAsExecuted(settings, scriptFilename, taskObserver);
             }
         }
 
+
+        public void ExecuteIfChanged(string fullFilename, ConnectionSettings settings, ITaskObserver taskObserver, bool logOnly = false)
+        {
+            string scriptFilename = getFilename(fullFilename);
+            string scriptFileMD5;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(fullFilename))
+                {
+                    scriptFileMD5 = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
+                }
+            }
+
+            if (_executionTracker.EverytimeScriptShouldBeExecuted(settings, scriptFilename, scriptFileMD5))
+            {
+                if (!logOnly)
+                {
+                    string sql = _fileSystem.ReadTextFile(fullFilename);
+
+                    taskObserver.Log(string.Format("Executing: {0}{1}", getLastFolderName(fullFilename), scriptFilename));
+                    _executor.ExecuteNonQuery(settings, sql, true);
+                }
+                else
+                {
+                    taskObserver.Log(string.Format("Executing: {0}{1} in log only mode", getLastFolderName(fullFilename), scriptFilename));
+                }
+
+                _executionTracker.MarkScriptAsExecuted(settings, scriptFilename, taskObserver, scriptFileMD5);
+            }
+            else
+            {
+                taskObserver.Log(string.Format("Skipping (unchanged): {0}{1}", getLastFolderName(fullFilename), scriptFilename));
+            }
+
+
+        }
+
+
         private string getFilename(string fullFilename)
         {
             return Path.GetFileName(fullFilename);
         }
+
+        private string getLastFolderName(string fullFilename)
+        {
+            string lastfolder = Path.GetFileName(Path.GetDirectoryName(fullFilename));
+            if (lastfolder.ToLower() == "create") return string.Empty;
+            if (lastfolder.ToLower() == "update") return string.Empty;
+            if (lastfolder.ToLower() == "everytime") return string.Empty;
+            return lastfolder + "/";
+        }
+
+
         /// <summary>
         /// Some commands are not allowed inside transactions
         /// http://msdn.microsoft.com/en-us/library/ms191544.aspx

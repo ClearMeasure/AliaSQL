@@ -24,6 +24,7 @@ namespace AliaSQL.Core.Services.Impl
             string sql = string.Format("create database [{0}]", taskAttributes.ConnectionSettings.Database);
             _queryExecutor.ExecuteNonQuery(taskAttributes.ConnectionSettings, sql);
 
+            taskObserver.Log(string.Format("Run scripts in Create folder."));
             _folderExecutor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
 		}
 	}
