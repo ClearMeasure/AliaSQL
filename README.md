@@ -1,4 +1,4 @@
-<img src="https://raw.github.com/ericdc1/AliaSQL/master/images/AliaSQL.PNG" alt="AliaSQL" width="400">
+<img src="https://raw.github.com/ClearMeasure/AliaSQL/master/images/AliaSQL.PNG" alt="AliaSQL" width="400">
 
 What is AliaSQL?
 --------------------------------
@@ -7,9 +7,9 @@ AliaSQL is a command line tool for database deployments. It is a drop in replace
 How do I get started?
 --------------------------------
 
-Check out the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Getting-started).
+Check out the [getting started guide](https://github.com/ClearMeasure/AliaSQL/wiki/Getting-started).
 
-Check out the [wiki for some background information](https://github.com/ericdc1/AliaSQL/wiki/).
+Check out the [wiki for some background information](https://github.com/ClearMeasure/AliaSQL/wiki/).
 
 Read the blog posts [here](http://sharpcoders.org/post/Introducing-AliaSQL) and [here](http://jeffreypalermo.com/blog/aliasql-the-new-name-in-automated-database-change-management/).
 
@@ -25,10 +25,9 @@ To get the the AliaSQL.exe tool by itself install AliaAQL from the package manag
 
     PM> Install-Package AliaSQL
 
-The latest compiled version can be found here: https://github.com/ericdc1/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
+The latest compiled version can be found here: https://github.com/ClearMeasure/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
 
 What else needs done?
----------------------
-- I considered the idea of "Everytime Scripts" for things like Stored Procedures, Views, and Triggers but I don't need this myself. If you have this need feel free to submit a pull request. 
-- More unit tests need written around Baseline, TestData, and Update
-- There are likely some additional things in SQL scripts that will fail when running in a transaction. More detail on this in the [getting started guide](https://github.com/ericdc1/AliaSQL/wiki/Getting-started).
+--------------------- 
+- More unit tests need written around Baseline, TestData, Update, and Everytime 
+- There are likely some additional things in SQL scripts that will fail when running in a transaction. More detail on this in the [getting started guide](https://github.com/ClearMeasure/AliaSQL/wiki/Getting-started).
