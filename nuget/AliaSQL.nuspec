@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata schemaVersion="2">
     <id>AliaSQL</id>
-    <version>1.0.0.0</version>
+    <version>1.1.0.0</version>
     <title>AliaSQL</title>
     <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
     <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
@@ -16,7 +16,10 @@
     <frameworkAssemblies>
     </frameworkAssemblies>
     <releaseNotes>
-    </releaseNotes>
+      Full documentation can be found at http://github.com/ericdc1/Dapper.SimpleCRUD/ 
+       * version 1.0.4: Initial release
+       * version 1.1.0: type) Added concept of Everytime scripts for views/stored procedures/etc
+   </releaseNotes>
   </metadata>
   <files>
     <file src="..\build\package\AliaSQL\AliaSQL.exe" target="tools\AliaSQL.exe" />
