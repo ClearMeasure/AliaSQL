@@ -26,6 +26,8 @@ namespace AliaSQL.UnitTests
 				queryExecutor.ExecuteNonQuery(settings, "create database [db]");
                 taskObserver.Log(string.Format("Run scripts in Create folder."));
 				executor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
+                taskObserver.Log(string.Format("Run scripts in Everytime folder."));
+                executor.ExecuteChangedScriptsInFolder(taskAttributes, "Everytime", taskObserver);
 			}
 
 			using (mocks.Playback())

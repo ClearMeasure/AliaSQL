@@ -60,7 +60,7 @@ namespace AliaSQL.UnitTests
         //}
 
         //[Test]
-        //public void UpdatesHashForPreviouslyLoggedEverytimeScript()
+        //public void Updates_Hash_For_Previously_Logged_Everytime_Script()
         //{
         //    throw new Exception();
         //}
