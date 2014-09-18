@@ -62,15 +62,8 @@ namespace AliaSQL.Core.Services.Impl
         public void ExecuteIfChanged(string fullFilename, ConnectionSettings settings, ITaskObserver taskObserver, bool logOnly = false)
         {
             string scriptFilename = getFilename(fullFilename);
-            string scriptFileMD5;
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = File.OpenRead(fullFilename))
-                {
-                    scriptFileMD5 = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "").ToLower();
-                }
-            }
-
+            var scriptFileMD5 = GetFileMD5Hash(fullFilename);
+           
             if (_executionTracker.EverytimeScriptShouldBeExecuted(settings, scriptFilename, scriptFileMD5))
             {
                 if (!logOnly)
@@ -91,8 +84,19 @@ namespace AliaSQL.Core.Services.Impl
             {
                 taskObserver.Log(string.Format("Skipping (unchanged): {0}{1}", getLastFolderName(fullFilename), scriptFilename));
             }
+        }
 
-
+        public static string GetFileMD5Hash(string fullFilename)
+        {
+            string scriptFileMD5;
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(fullFilename))
+                {
+                    scriptFileMD5 = BitConverter.ToString(md5.ComputeHash(stream)).Replace("-", "");
+                }
+            }
+            return scriptFileMD5;
         }
 
 

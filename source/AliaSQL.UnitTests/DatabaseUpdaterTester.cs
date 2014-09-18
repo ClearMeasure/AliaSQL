@@ -42,16 +42,7 @@ namespace AliaSQL.UnitTests
 
 
         //TODO: implement these tests
-        //[Test]
-        //public void Update_Database_Runs_New_Everytime_Script()
-        //{
-        //    throw new Exception();
-        //}
-        //[Test]
-        //public void Update_Database_Skips_Already_Ran_Everytime_Script()
-        //{
-        //    throw new Exception();
-        //}
+
 
         //[Test]
         //public void Update_Database_Runs_Altered_Everytime_Script()
@@ -59,11 +50,7 @@ namespace AliaSQL.UnitTests
         //    throw new Exception();
         //}
 
-        //[Test]
-        //public void Updates_Hash_For_Previously_Logged_Everytime_Script()
-        //{
-        //    throw new Exception();
-        //}
+
 
 	}
 }

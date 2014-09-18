@@ -7,6 +7,7 @@ properties {
 	$base_dir = resolve-path .
 	$source_dir = "$base_dir\source"
     $unitTestAssembly = "$projectName.UnitTests.dll"
+    $integrationTestAssembly = "$projectName.IntegrationTests.dll"
     $nunitPath = "$source_dir\packages\NUnit.Runners.2.6.3\tools\nunit-console-x86.exe"
     $AliaSQLPath = "$base_dir\lib\AliaSQL\AliaSQL.exe"
 	$build_dir = "$base_dir\build"
@@ -16,12 +17,13 @@ properties {
 	$package_file = "$build_dir\latest\" + $projectName +"_Package.zip"
 	$databaseServer = ".\sqlexpress"
 	$databaseScripts = "$source_dir\Database.Demo"
+    $integrationScripts = "$source_dir\AliaSQL.IntegrationTests\scripts"
 	$databaseName = "Demo"
     $SqlPackagePath = "C:\Program Files (x86)\Microsoft SQL Server\110\DAC\bin\SqlPackage.exe"
 }
 
-task default -depends Init, UpdateAssemblyInfo, Compile, Test
-task ci -depends Init, UpdateAssemblyInfo, Compile, Test, Package, NugetPack
+task default -depends Init, UpdateAssemblyInfo, Compile, Test, IntegrationTest 
+task ci -depends Init, UpdateAssemblyInfo, Compile, Test, IntegrationTest, Package, NugetPack
 
 task Init {
     delete_file $package_file
@@ -42,6 +44,7 @@ task Compile -depends Init {
 task Test {
     if (Test-Path  ("$nunitPath")){
         copy_all_assemblies_for_test $test_dir
+        
         if (Test-Path  ("$test_dir\$unitTestAssembly")){
             write-host "Testing $unitTestAssembly"
 	        exec {
@@ -57,6 +60,25 @@ task Test {
       write-host "Cannot run tests as $nunitPath is MISSING"
     }
 }
+
+task IntegrationTest -depends  Init, Compile, Test {
+    if (Test-Path  ("$nunitPath")){
+        copy_all_assemblies_for_test "$test_dir"
+         Copy_files "$integrationScripts" "$test_dir/scripts"
+        if (Test-Path  ("$test_dir\$integrationTestAssembly")){
+            write-host "Testing $integrationTestAssembly"
+            exec { & $nunitPath $test_dir\$integrationTestAssembly /xml $build_dir\IntegrationTestResult.xml}
+        }
+        else
+        {
+            write-host "Cannot run integration tests as $test_dir\$integrationTestAssembly is MISSING"
+        }
+    }
+    else{
+      write-host "Cannot run tests as $nunitPath is MISSING"
+    }
+}
+
 
 task UpdateAssemblyInfo {
     Update-AssemblyInfoFiles $version
