@@ -16,4 +16,4 @@ Place test data scripts in the "Scripts/TestData" folder named with a numeric pr
 
 Run this project from Visual Studio to run database migrations.
 
-For more information visit http://AliaSQL.com
+For more information visit https://github.com/ClearMeasure/AliaSQL/
