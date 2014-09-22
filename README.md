@@ -17,7 +17,7 @@ Where can I get it?
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
 
-We recommend starting with the AliaSQL Kickstarter that creates the Create, Update, Everytime, and TestData folders and  provides the Visual Studio runner. To get started, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
+We recommend starting with the AliaSQL Kickstarter that creates Create, Update, Everytime, and TestData folders for your SQL scripts and  provides a Visual Studio runner. To get started, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
 
     PM> Install-Package AliaSQL.Kickstarter
 
