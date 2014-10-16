@@ -31,3 +31,5 @@ What else needs done?
 --------------------- 
 - More unit tests need written around Baseline, TestData, Update, and Everytime 
 - There are likely some additional things in SQL scripts that will fail when running in a transaction. More detail on this in the [getting started guide](https://github.com/ClearMeasure/AliaSQL/wiki/Getting-started).
+
+-
