@@ -17,11 +17,11 @@ Where can I get it?
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
 
-It is recommended to start with the AliaSQL Kickstarter that creates the Create, Update, and TestData folders and provides the Visual Studio runner, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
+We recommend starting with the AliaSQL Kickstarter that creates Create, Update, Everytime, and TestData folders for your SQL scripts and  provides a Visual Studio runner. To get started, create an empty C# console app then install AliaSQL.Kickstarter from the package manager console:
 
     PM> Install-Package AliaSQL.Kickstarter
 
-To get the the AliaSQL.exe tool by itself install AliaAQL from the package manager console:
+To get the the AliaSQL.exe tool by itself install AliaSQL from the package manager console:
 
     PM> Install-Package AliaSQL
 
