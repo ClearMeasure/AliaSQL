@@ -1,94 +1,66 @@
 ﻿using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
+using System.Configuration;
 
 namespace $rootnamespace$
 {
     class Program
     {
-        static string databaseName = GetDatabaseName();
-        static string DbServer = GetDatabaseServer();
+        static readonly string DatabaseName = GetDatabaseName();
+        static readonly string DbServer = GetDatabaseServer();
 
         static void Main()
         {
-            // Change to your number of menuitems.
-            const int maxMenuItems = 6;
-            var selector = 0;
             Console.Title = "AliaSQL Database Migrations Visual Studio Runner";
-            while (selector != maxMenuItems)
+            
+            var currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
+            var parentDirectory = currentDirectory.Parent.Parent.FullName;
+            var scriptspath = parentDirectory + "\\Scripts\\";
+            var deployerpath = scriptspath + "AliaSQL.exe";
+            var p = new Process();
+            var keySelection = string.Empty;
+
+            while (string.Compare(keySelection, "Exit", StringComparison.InvariantCultureIgnoreCase) != 0)
             {
-                Console.Clear();
-                DrawMenu();
-                bool good = int.TryParse(Console.ReadLine(), out selector);
-                if (good)
+                if (!string.IsNullOrEmpty(keySelection))
                 {
+                    Console.WriteLine();
 
-                    var currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-                    var parentDirectory = currentDirectory.Parent.Parent.FullName;
-                    var scriptspath = parentDirectory + "\\scripts\\";
-                    var deployerpath = scriptspath + "AliaSQL.exe";
-                    var p = new Process();
+                    var cmdArguments = string.Format("{0} {1} {2} {3}", keySelection, DbServer, DatabaseName, scriptspath);
+                    p.StartInfo.FileName = deployerpath;
+                    p.StartInfo.Arguments = cmdArguments;
+                    p.StartInfo.UseShellExecute = false;
+                    p.StartInfo.RedirectStandardOutput = true;
+                    p.Start();
 
-                    switch (selector)
-                    {
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                            string cmdArguments = string.Format("{0} {1} {2} {3}", GetVerbForCase(selector), DbServer, databaseName, scriptspath);
-                            p.StartInfo.FileName = deployerpath;
-                            p.StartInfo.Arguments = cmdArguments;
-                            p.StartInfo.UseShellExecute = false;
-                            p.StartInfo.RedirectStandardOutput = true;
-                            p.Start();
-                            Console.WriteLine(p.StandardOutput.ReadToEnd());
-                            Console.WriteLine("Press any key to continue.");
-                            break;
-                        default:
-                            if (selector != maxMenuItems)
-                            {
-                                ErrorMessage();
-                            }
-                            break;
-                    }
+                    Console.WriteLine(p.StandardOutput.ReadToEnd());
+                    Console.WriteLine("Press Any Key to Continue");
                 }
                 else
                 {
-                    ErrorMessage();
+                    DrawMenu();
                 }
-                Console.ReadKey();
+
+                var key = Console.ReadKey(true);
+                keySelection = GetVerbForKeySelection(key);
             }
-        }
-        private static void ErrorMessage()
-        {
-            Console.WriteLine("Typing error, press key to continue.");
         }
 
         private static void DrawMenu()
         {
-            Console.WriteLine(" Database: " + databaseName);
-            Console.WriteLine(" Server: " + DbServer);
-            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["DatabaseName"]))
-            {
-                Console.WriteLine(" ");
-                Console.WriteLine(" The default database name comes from the Assembly Name of this project");
-                Console.WriteLine(" -If the Assembly Name contains '.Database.' it will be removed.");
-                Console.WriteLine(" -Database.Demo, Demo.Database, or DemoDatabase becomes 'Demo' ");
-                Console.WriteLine(" ");
-                Console.WriteLine(" Change the database name by changing the Assembly Name or editing app.config");
-            }
+            Console.Clear();
 
+            Console.WriteLine(" Database: " + DatabaseName);
+            Console.WriteLine(" Server: " + DbServer);
             Console.WriteLine(" ----------------------------------------------------------------------------");
-            Console.WriteLine(" 1. Update"); 
+            Console.WriteLine(" 1. Update");
             Console.WriteLine(" 2. Create");
             Console.WriteLine(" 3. Rebuild");
             Console.WriteLine(" 4. TestData");
             Console.WriteLine(" 5. Baseline");
             Console.WriteLine(" 6. Exit program");
-
         }
 
         /// <summary>
@@ -98,16 +70,20 @@ namespace $rootnamespace$
         private static string GetDatabaseName()
         {
             var databasename = ConfigurationManager.AppSettings["DatabaseName"];
+
             if (string.IsNullOrEmpty(databasename))
             {
                 var projectname = Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location);
+
                 databasename = projectname.Replace("Database.", "").Replace(".Database", "").Replace("Database", "");
             }
             return databasename;
         }
+
         private static string GetDatabaseServer()
         {
             var servername = ConfigurationManager.AppSettings["DatabaseServer"];
+
             if (string.IsNullOrEmpty(servername))
             {
                 servername = ".\\sqlexpress";
@@ -115,15 +91,31 @@ namespace $rootnamespace$
             return servername;
         }
 
-
-        private static string GetVerbForCase(int selector)   
+        private static string GetVerbForKeySelection(ConsoleKeyInfo keyInfo)
         {
-            if (selector == 1) return "Update";
-            if (selector == 2) return "Create";
-            if (selector == 3) return "Rebuild";
-            if (selector == 4) return "TestData";
-            if (selector == 5) return "Baseline";
-            throw new Exception("invalid selector");
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.D1:
+                case ConsoleKey.NumPad1:
+                    return "Update";
+                case ConsoleKey.D2:
+                case ConsoleKey.NumPad2:
+                    return "Create";
+                case ConsoleKey.D3:
+                case ConsoleKey.NumPad3:
+                    return "Rebuild";
+                case ConsoleKey.D4:
+                case ConsoleKey.NumPad4:
+                    return "TestData";
+                case ConsoleKey.D5:
+                case ConsoleKey.NumPad5:
+                    return "Baseline";
+                case ConsoleKey.D6:
+                case ConsoleKey.NumPad6:
+                    return "Exit";
+                default:
+                    return string.Empty;
+            }
         }
     }
 }
