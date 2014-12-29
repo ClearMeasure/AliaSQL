@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata schemaVersion="2">
     <id>AliaSQL.Kickstarter</id>
-    <version>1.0.1.0</version>
+    <version>1.2.1.0</version>
     <title>AliaSQL Kickstarter</title>
     <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
     <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
@@ -16,7 +16,9 @@
     <frameworkAssemblies>
     	<frameworkAssembly assemblyName="System.Configuration" />
     </frameworkAssemblies>
-    <releaseNotes>
+    <releaseNotes> 
+	  Full documentation can be found at http://github.com/ClearMeasure/AliaSQL 
+	  * More intuitive menu handling for console application thanks to https://github.com/Boyan-Kostadinov 
     </releaseNotes>
   </metadata>
   <files>
