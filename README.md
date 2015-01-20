@@ -1,4 +1,4 @@
-<img align="right" src="https://raw.github.com/ClearMeasure/AliaSQL/master/images/AliaSQL.PNG" alt="AliaSQL" width="400">
+<img src="https://raw.github.com/ClearMeasure/AliaSQL/master/images/AliaSQL.PNG" alt="AliaSQL" width="400">
 
 What is AliaSQL?
 --------------------------------
