@@ -27,9 +27,8 @@ namespace $rootnamespace$
                 if (!string.IsNullOrEmpty(keySelection))
                 {
                     Console.WriteLine();
-
-                    var cmdArguments = string.Format("{0} {1} {2} {3}", keySelection, DbServer, DatabaseName, scriptspath);
-                    p.StartInfo.FileName = deployerpath;
+                    var cmdArguments = string.Format("{0} {1} {2} \"{3}", keySelection, DbServer, DatabaseName, scriptspath); 
+		    p.StartInfo.FileName = deployerpath;
                     p.StartInfo.Arguments = cmdArguments;
                     p.StartInfo.UseShellExecute = false;
                     p.StartInfo.RedirectStandardOutput = true;
