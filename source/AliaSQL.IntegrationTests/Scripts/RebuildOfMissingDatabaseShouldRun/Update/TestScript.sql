@@ -1,0 +1,6 @@
+﻿CREATE TABLE Test
+(
+    Id INT NOT NULL,
+    Description NVARCHAR(25) NOT NULL
+);
+GO

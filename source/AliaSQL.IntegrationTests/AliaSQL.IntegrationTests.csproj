@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RebuildOfMissingDatabaseShouldRunTester.cs" />
+    <Content Include="Scripts\RebuildOfMissingDatabaseShouldRun\Update\TestScript.sql" />
     <Content Include="Scripts\ChangedEverytimeScriptShouldRun\Everytime\TestScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -78,6 +80,8 @@
     <Folder Include="Scripts\NewEverytimeScript\Update\" />
     <Folder Include="Scripts\OldEverytimeScriptShouldNotRun\Create\" />
     <Folder Include="Scripts\OldEverytimeScriptShouldNotRun\Update\" />
+    <Folder Include="Scripts\RebuildOfMissingDatabaseShouldRun\Create\" />
+    <Folder Include="Scripts\RebuildOfMissingDatabaseShouldRun\Everytime\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AliaSQL.Console\AliaSQL.Console.csproj">
