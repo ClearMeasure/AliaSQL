@@ -24,6 +24,11 @@ namespace AliaSQL.Core.Services.Impl
 
         public void Execute(TaskAttributes taskAttributes, ITaskObserver taskObserver)
         {
+            if (!_queryExecutor.CheckDatabaseExists(taskAttributes.ConnectionSettings))
+            {
+                return;
+            }
+
             var version = _queryExecutor.ReadFirstColumnAsStringArray(taskAttributes.ConnectionSettings, "select @@version")[0];
              taskObserver.Log("Running against: " + version);
 

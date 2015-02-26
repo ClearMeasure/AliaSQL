@@ -21,7 +21,9 @@ namespace AliaSQL.UnitTests
             var connectionDropper = mocks.StrictMock<IDatabaseConnectionDropper>();
             var taskObserver = mocks.StrictMock<ITaskObserver>();
             var queryExecutor = mocks.StrictMock<IQueryExecutor>();
-            
+
+            Set_CheckDatabaseExists_to_return_true(queryExecutor, settings);
+
 			using (mocks.Record())
 			{
 				Expect.Call(() => taskObserver.Log("Running against: SQL Server"));
@@ -51,6 +53,8 @@ namespace AliaSQL.UnitTests
             var taskObserver = mocks.StrictMock<ITaskObserver>();
             var queryExecutor = mocks.StrictMock<IQueryExecutor>();
 
+            Set_CheckDatabaseExists_to_return_true(queryExecutor, settings);
+
             using (mocks.Record())
             {
                 Expect.Call(() => taskObserver.Log("Running against: SQL Azure"));
@@ -79,6 +83,8 @@ namespace AliaSQL.UnitTests
             var taskObserver = mocks.StrictMock<ITaskObserver>();
             var queryExecutor = mocks.StrictMock<IQueryExecutor>();
 
+            Set_CheckDatabaseExists_to_return_true(queryExecutor, settings);
+
 			using (mocks.Record())
 			{
                 Expect.Call(() => taskObserver.Log("Running against: SQL Server"));
@@ -98,5 +104,10 @@ namespace AliaSQL.UnitTests
 
 			mocks.VerifyAll();
 		}
+
+        private void Set_CheckDatabaseExists_to_return_true(IQueryExecutor queryExecutor, ConnectionSettings settings)
+        {
+            queryExecutor.Stub(x => x.CheckDatabaseExists(settings)).Return(true);
+        }
 	}
 }
