@@ -14,28 +14,39 @@ namespace AliaSQL.IntegrationTests
         public void Rebuild_Missing_Database_Generates_Database()
         {
             //arrange
-            string scriptsDirectory = Path.Combine("Scripts", 
+            string scriptsDirectory = Path.Combine("Scripts",
                 this.GetType().Name.Replace("Tester", string.Empty));
 
             var settings = new ConnectionSettings(".\\sqlexpress", "aliasqltest", true, null, null);
-            
+
             var aliaConsole = new ConsoleAliaSQL();
 
             //act
             //database should not exist
-            DatabaseDoesNotExist(settings).ShouldBeTrue();
+            if (DatabaseExists(settings))
+            {
+                DropDatabase(settings, scriptsDirectory);
+            }
 
             //assert
             aliaConsole.UpdateDatabase(settings, scriptsDirectory, RequestedDatabaseAction.Rebuild).ShouldBeTrue();
+
+            if (DatabaseExists(settings))
+            {
+                DropDatabase(settings, scriptsDirectory);
+            }
         }
 
-        private bool DatabaseDoesNotExist(ConnectionSettings settings)
+        private bool DatabaseExists(ConnectionSettings settings)
         {
             var queryExecutor = new QueryExecutor();
 
-            string sql = string.Format("select count(1) AS Databases from master..sysdatabases where name = '{0}';", settings.Database);
+            return queryExecutor.CheckDatabaseExists(settings);
+        }
 
-            return queryExecutor.ExecuteScalarInteger(settings, sql) == 0;
+        private void DropDatabase(ConnectionSettings settings, string scriptsDirectory)
+        {
+            new ConsoleAliaSQL().UpdateDatabase(settings, scriptsDirectory, RequestedDatabaseAction.Drop);
         }
     }
 }
