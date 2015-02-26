@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Transactions;
 using AliaSQL.Core.Model;
+using AliaSQL.Core.Exceptions;
+using System.Data;
 
 namespace AliaSQL.Core.Services.Impl
 {
@@ -53,7 +55,7 @@ namespace AliaSQL.Core.Services.Impl
                         }
                         catch (Exception ex)
                         {
-                            ex.Data.Add("Custom","Erroring script was not run in a transaction and may be partially committed.");
+                            ex.Data.Add("Custom", "Erroring script was not run in a transaction and may be partially committed.");
                             throw ex;
                         }
 
@@ -159,32 +161,60 @@ namespace AliaSQL.Core.Services.Impl
                 .Select(x => x.Trim(' ', '\r', '\n'));
         }
 
+        /// <summary>
+        /// Checks to see if the database targeted by the connection string exists on the server.
+        /// </summary>
+        /// <param name="settings">The connection string settings to connect with.</param>
+        /// <returns>True if the database exists on the target location and can be connected to.</returns>
+        /// <exception cref="ServerConnectionFailedException">Thrown when no connection to the server can be made.</exception>
         public bool CheckDatabaseExists(ConnectionSettings settings)
         {
-            bool result;
-            var tmpConn = new SqlConnection(_connectionStringGenerator.GetConnectionString(settings, false));
-            try
-            {
-                string sqlCreateDbQuery = string.Format("SELECT database_id FROM sys.databases WHERE Name = '{0}'", settings.Database);
-                using (tmpConn)
-                {
-                    using (var sqlCmd = new SqlCommand(sqlCreateDbQuery, tmpConn))
-                    {
-                        tmpConn.Open();
-                        var databaseId = (int)sqlCmd.ExecuteScalar();
-                        tmpConn.Close();
+            string connectionString = _connectionStringGenerator.GetConnectionString(settings, false);
 
-                        result = (databaseId > 0);
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                result = false;
-            }
-            return result;
+            DataTable schemaTable = GetSchemaForServer(settings, connectionString);
+
+            return SchemaContainsDatabase(schemaTable, settings.Database);
         }
 
+        private DataTable GetSchemaForServer(ConnectionSettings settings, string connectionString)
+        {
+            using (var tmpConn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    tmpConn.Open();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    throw new ServerConnectionFailedException("Cannot connect to the server: " + settings.Server + " see the inner exception for more details", ex);
+                }
+                catch (SqlException ex)
+                {
+                    throw new ServerConnectionFailedException("Cannot connect to the server: " + settings.Server + " see the inner exception for more details", ex);
+                }
 
+                var schema = tmpConn.GetSchema("Databases");
+
+                return schema;
+            }
+        }
+
+        private bool SchemaContainsDatabase(DataTable schemaTable, string databaseName)
+        {
+            if (!schemaTable.Columns.Contains("database_name"))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < schemaTable.Rows.Count; i++)
+            {
+                if (string.Compare(schemaTable.Rows[i]["database_name"].ToString(), databaseName, true) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
