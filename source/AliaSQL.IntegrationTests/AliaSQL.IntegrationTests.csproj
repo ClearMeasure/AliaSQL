@@ -53,7 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RebuildOfMissingDatabaseShouldRunTester.cs" />
-    <Content Include="Scripts\RebuildOfMissingDatabaseShouldRun\Update\TestScript.sql" />
+    <Compile Include="Utils\DatabaseIntegrationHelpers.cs" />
+    <Content Include="Scripts\RebuildOfMissingDatabaseShouldRun\Update\TestScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\ChangedEverytimeScriptShouldRun\Everytime\TestScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

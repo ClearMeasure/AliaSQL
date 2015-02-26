@@ -1,11 +1,12 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.IO;
-using AliaSQL.Console;
+﻿using AliaSQL.Console;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services.Impl;
+using AliaSQL.IntegrationTests.Utils;
 using NUnit.Framework;
 using Should;
+using System;
+using System.Data.SqlClient;
+using System.IO;
 
 namespace AliaSQL.IntegrationTests.NewEverytimeScript
 {
@@ -25,10 +26,9 @@ namespace AliaSQL.IntegrationTests.NewEverytimeScript
             //act
             bool success = new ConsoleAliaSQL().UpdateDatabase(settings, scriptsDirectory, RequestedDatabaseAction.Update);
 
-
             //assert
             int records = 0;
-            AssertUsdAppliedDatabaseScriptTable(settings, reader =>
+            DatabaseIntegrationHelpers.AssertUsdAppliedDatabaseScriptTable(settings, reader =>
             {
                 while (reader.Read())
                 {
@@ -41,26 +41,5 @@ namespace AliaSQL.IntegrationTests.NewEverytimeScript
             success.ShouldEqual(true);
             records.ShouldEqual(1);
         }
-
-        private void AssertUsdAppliedDatabaseScriptTable(ConnectionSettings settings, Action<SqlDataReader> assertAction)
-        {
-            string connectionString = new ConnectionStringGenerator().GetConnectionString(settings, true);
-
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (var command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText =
-                        "SELECT  [ScriptFile],[DateApplied],[Version],[hash] FROM [dbo].[usd_AppliedDatabaseScript]";
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        assertAction(reader);
-                    }
-                }
-            }
-        }
-
     }
 }
