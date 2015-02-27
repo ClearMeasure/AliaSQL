@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata schemaVersion="2">
     <id>AliaSQL</id>
-    <version>1.3.0.0</version>
+    <version>1.3.1.0</version>
     <title>AliaSQL</title>
     <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
     <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
@@ -17,8 +17,9 @@
     </frameworkAssemblies>
     <releaseNotes>
       Full documentation can be found at http://github.com/ClearMeasure/AliaSQL 
-      * version 1.2.0: Added concept of Everytime scripts for views/stored procedures/etc
-      * version 1.3.0: Better handling of database drop for Azure SQL
+	  * version 1.2.0: Added concept of Everytime scripts for views/stored procedures/etc
+	  * version 1.3.0: Better handling of database drop for Azure SQL
+	  * version 1.3.1: Fix for issue with Rebuild command when database doesn't exist
    </releaseNotes>
   </metadata>
   <files>
