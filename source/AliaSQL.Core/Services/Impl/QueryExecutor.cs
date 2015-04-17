@@ -40,7 +40,7 @@ namespace AliaSQL.Core.Services.Impl
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-
+                    command.CommandTimeout = 0;
                     var scripts = SplitSqlStatements(sql);
 
 
@@ -80,6 +80,7 @@ namespace AliaSQL.Core.Services.Impl
                     using (var command = new SqlCommand())
                     {
                         command.Connection = connection;
+                        command.CommandTimeout = 0;
                         var scripts = SplitSqlStatements(sql);
                         foreach (var splitScript in scripts)
                         {
