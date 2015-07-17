@@ -26,9 +26,6 @@ namespace AliaSQL.Core.Services.Impl
 
             taskObserver.Log(string.Format("Run scripts in Create folder."));
             _folderExecutor.ExecuteScriptsInFolder(taskAttributes, "Create", taskObserver);
-
-            taskObserver.Log(string.Format("Run scripts in Everytime folder."));
-            _folderExecutor.ExecuteChangedScriptsInFolder(taskAttributes, "Everytime", taskObserver);
 		}
 	}
 }
