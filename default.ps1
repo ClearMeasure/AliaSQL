@@ -1,6 +1,6 @@
 properties {
 	$projectName = "AliaSQL" 
-    $version = "1.3.2"
+    $version = "1.3.3"
 
     $version = $version + "." + (get-date -format "MMdd")  
 	$projectConfig = "Release"
