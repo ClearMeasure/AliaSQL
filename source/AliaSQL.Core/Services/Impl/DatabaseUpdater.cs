@@ -34,7 +34,10 @@ namespace AliaSQL.Core.Services.Impl
 
             taskObserver.Log(string.Format("Run scripts in Everytime folder."));
             _folderExecutor.ExecuteChangedScriptsInFolder(taskAttributes, "Everytime", taskObserver);
-		}
+
+            taskObserver.Log(string.Format("Run scripts in RunAlways folder."));
+            _folderExecutor.ExecuteRunAlwaysScriptsInFolder(taskAttributes, "RunAlways", taskObserver);
+        }
 
 	}
 }

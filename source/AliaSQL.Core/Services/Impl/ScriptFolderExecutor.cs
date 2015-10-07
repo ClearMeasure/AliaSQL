@@ -52,6 +52,18 @@ namespace AliaSQL.Core.Services.Impl
             _versioner.VersionDatabase(taskAttributes.ConnectionSettings, taskObserver);
         }
 
+        public void ExecuteRunAlwaysScriptsInFolder(TaskAttributes taskAttributes, string scriptDirectory, ITaskObserver taskObserver)
+        {
+            var sqlFilenames = _fileLocator.GetSqlFilenames(taskAttributes.ScriptDirectory, scriptDirectory);
+
+            foreach (string sqlFilename in sqlFilenames)
+            {
+                _scriptExecutor.ExecuteAlways(sqlFilename, taskAttributes.ConnectionSettings, taskObserver, taskAttributes.LogOnly);
+            }
+
+            _versioner.VersionDatabase(taskAttributes.ConnectionSettings, taskObserver);
+        }
+
         public void ExecuteTestDataScriptsInFolder(TaskAttributes taskAttributes, string scriptDirectory, ITaskObserver taskObserver)
         {
             _schemaInitializer.EnsureTestDataSchemaCreated(taskAttributes.ConnectionSettings);

@@ -12,5 +12,6 @@ namespace AliaSQL.Core.Services
          
         void ExecuteTestDataScriptsInFolder(TaskAttributes taskAttributes, string scriptDirectory, ITaskObserver taskObserver);
 
+	    void ExecuteRunAlwaysScriptsInFolder(TaskAttributes taskAttributes, string scriptDirectory, ITaskObserver taskObserver);
 	}
 }
