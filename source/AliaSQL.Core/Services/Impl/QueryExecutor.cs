@@ -186,6 +186,51 @@ namespace AliaSQL.Core.Services.Impl
             return result;
         }
 
+        public List<string> GetExecutedScripts(ConnectionSettings settings)
+        {
+            var executedfiles = new List<string>();
+            using (var connection = new SqlConnection(_connectionStringGenerator.GetConnectionString(settings, true)))
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "select ScriptFile from usd_AppliedDatabaseScript";
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string item = reader[0].ToString();
+                            executedfiles.Add(item);
+                        }
+                    }
+                }
+            }
+            return executedfiles;
+        }
+
+        public List<string> GetExecutedTestDataScripts(ConnectionSettings settings)
+        {
+            var executedfiles = new List<string>();
+            using (var connection = new SqlConnection(_connectionStringGenerator.GetConnectionString(settings, true)))
+            {
+                connection.Open();
+                using (var command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "if OBJECT_ID('usd_AppliedDatabaseTestDataScript', 'U') is not null select ScriptFile from usd_AppliedDatabaseTestDataScript else select top(0) null as ScriptFile ";
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string item = reader[0].ToString();
+                            executedfiles.Add(item);
+                        }
+                    }
+                }
+            }
+            return executedfiles;
+        } 
 
     }
 }

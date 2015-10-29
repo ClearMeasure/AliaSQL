@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using AliaSQL.Core;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services;
 using AliaSQL.Core.Services.Impl;

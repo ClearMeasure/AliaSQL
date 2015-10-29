@@ -1,4 +1,4 @@
-﻿namespace AliaSQL.Core.Services.Impl
+﻿namespace AliaSQL.Core
 {
 	public enum RequestedDatabaseAction
 	{

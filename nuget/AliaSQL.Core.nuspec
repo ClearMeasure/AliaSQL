@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata schemaVersion="2">
+    <id>AliaSQL.Core</id>
+    <version>1.3.4-beta</version>
+    <title>AliaSQL.Core</title>
+    <authors>Eric Coffman &amp; Jeffrey Palermo</authors>
+    <owners>Eric Coffman &amp; Jeffrey Palermo</owners>
+    <licenseUrl>http://github.com/ClearMeasure/AliaSQL/license.txt</licenseUrl>
+    <projectUrl>http://github.com/ClearMeasure/AliaSQL</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Database change management tool.</description>
+    <summary>Database change management tool. Works with SQL Server 2005-2014</summary>
+    <tags>Database, change management, migration, migrations, deploy, deployer</tags>
+    <iconUrl>https://raw.github.com/ClearMeasure/AliaSQL/master/images/AliaSQL-200x200.png</iconUrl>
+    <frameworkAssemblies>
+    </frameworkAssemblies>
+    <releaseNotes>
+      Full documentation can be found at http://github.com/ClearMeasure/AliaSQL 
+	  * version 1.2.0: Added concept of Everytime scripts for views/stored procedures/etc
+	  * version 1.3.0: Better handling of database drop for Azure SQL
+	  * version 1.3.1: Fix for issue with Rebuild command when database doesn't exist
+	  * version 1.3.2: Set CommandTimeout to 0 to allow long running changes
+ 	  * version 1.3.3 Remove execution of Everytime scripts in DatabaseCreator - thanks to daveraine
+	  * version 1.3.4 Add C# runner
+   </releaseNotes>
+  </metadata>
+  <files>
+    <file src="..\build\package\AliaSQL\AliaSQL.Core.dll" target="lib\net45" />
+    <file src="..\build\package\AliaSQL\AliaSQL.Core.pdb" target="lib\net45" />
+	<file src="..\build\package\AliaSQL\AliaSQL.Core.xml" target="lib\net45" />
+  </files>
+</package>

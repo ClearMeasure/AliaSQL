@@ -1,4 +1,5 @@
-﻿using AliaSQL.Core.Model;
+﻿using System.Collections.Generic;
+using AliaSQL.Core.Model;
 
 namespace AliaSQL.Core.Services
 {
@@ -9,5 +10,7 @@ namespace AliaSQL.Core.Services
 		int ExecuteScalarInteger(ConnectionSettings settings, string sql);
 		string[] ReadFirstColumnAsStringArray(ConnectionSettings settings, string sql);
 	    bool CheckDatabaseExists(ConnectionSettings settings);
+	    List<string> GetExecutedScripts(ConnectionSettings settings);
+        List<string> GetExecutedTestDataScripts(ConnectionSettings settings);
 	}
 }

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AliaSQL.IntegrationTests")]
+[assembly: AssemblyTitle("AliaSQL.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AliaSQL.IntegrationTests")]
-[assembly: AssemblyCopyright("Copyright ?  2014")]
+[assembly: AssemblyProduct("AliaSQL.Web")]
+[assembly: AssemblyCopyright("Copyright ?  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("212e2409-52d4-43cd-8ee1-0019a9b176fc")]
+[assembly: Guid("af23ae2b-cf30-41b9-a339-d777d300b200")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -31,5 +31,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.3.4.1029")]
-[assembly: AssemblyFileVersion("1.3.4.1029")]
+// [assembly: AssemblyVersion("1.3.4-pre.1029")]
+[assembly: AssemblyVersion("1.3.4-pre.1029")]
+[assembly: AssemblyFileVersion("1.3.4-pre.1029")]

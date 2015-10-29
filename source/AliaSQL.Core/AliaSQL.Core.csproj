@@ -43,6 +43,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Debug\AliaSQL.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +54,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>bin\Release\AliaSQL.Core.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,8 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDbUpdater.cs" />
+    <Compile Include="Model\AliaSqlResult.cs" />
+    <Compile Include="DbUpdater.cs" />
     <Compile Include="Model\ConnectionSettings.cs" />
     <Compile Include="Model\TaskAttributes.cs" />
+    <Compile Include="RequestedDatabaseAction.cs" />
     <Compile Include="Services\Impl\DatabaseBaseliner.cs" />
     <Compile Include="Services\ITestDataScriptExecutor.cs" />
     <Compile Include="Services\IChangeScriptExecutor.cs" />
@@ -88,7 +94,6 @@
     <Compile Include="Services\Impl\IDataBaseActionLocator.cs" />
     <Compile Include="Services\Impl\LogMessageGenerator.cs" />
     <Compile Include="Services\Impl\QueryExecutor.cs" />
-    <Compile Include="Services\Impl\RequestedDatabaseAction.cs" />
     <Compile Include="Services\Impl\SchemaInitializer.cs" />
     <Compile Include="Services\Impl\ScriptExecutionTracker.cs" />
     <Compile Include="Services\Impl\ScriptFolderExecutor.cs" />
