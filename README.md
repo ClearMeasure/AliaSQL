@@ -13,6 +13,8 @@ Check out the [wiki for some background information](https://github.com/ClearMea
 
 Read the blog posts [here](http://sharpcoders.org/post/Introducing-AliaSQL) and [here](http://jeffreypalermo.com/blog/aliasql-the-new-name-in-automated-database-change-management/).
 
+There is also a C# runner that is currently in beta. Read about it here https://github.com/ClearMeasure/AliaSQL/wiki/C%23-runner 
+
 Where can I get it?
 --------------------------------
 First, [install NuGet](http://docs.nuget.org/docs/start-here/installing-nuget).
