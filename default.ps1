@@ -113,13 +113,13 @@ task Package -depends Compile {
 
  task NugetPack -depends Package {
  exec {
-    & $source_dir\.nuget\nuget.exe pack -Version 1.3.4-beta -outputdirectory $build_dir $base_dir\nuget\AliaSQL.nuspec
+    & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.nuspec
     }
  exec {
     & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Kickstarter.nuspec
     }
      exec {
-    & $source_dir\.nuget\nuget.exe pack -Version 1.3.4-beta -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Core.nuspec
+    & $source_dir\.nuget\nuget.exe pack -Version $version -outputdirectory $build_dir $base_dir\nuget\AliaSQL.Core.nuspec
     }
 }
 

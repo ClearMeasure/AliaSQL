@@ -195,7 +195,7 @@ namespace AliaSQL.Core.Services.Impl
                 using (var command = new SqlCommand())
                 {
                     command.Connection = connection;
-                    command.CommandText = "select ScriptFile from usd_AppliedDatabaseScript";
+                    command.CommandText = "if OBJECT_ID('usd_AppliedDatabaseScript', 'U') is not null select ScriptFile from usd_AppliedDatabaseScript else select top(0) null as ScriptFile ";
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
