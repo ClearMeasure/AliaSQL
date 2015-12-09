@@ -13,7 +13,7 @@ Check out the [wiki for some background information](https://github.com/ClearMea
 
 Read the blog posts [here](http://sharpcoders.org/post/Introducing-AliaSQL) and [here](http://jeffreypalermo.com/blog/aliasql-the-new-name-in-automated-database-change-management/).
 
-There is also a C# runner that is currently in beta. Read about it here https://github.com/ClearMeasure/AliaSQL/wiki/C%23-runner 
+There is also a C# runner as of version 1.4. Read about it here https://github.com/ClearMeasure/AliaSQL/wiki/C%23-runner 
 
 Where can I get it?
 --------------------------------
@@ -26,6 +26,11 @@ We recommend starting with the AliaSQL Kickstarter that creates Create, Update, 
 To get the the AliaSQL.exe tool by itself install AliaSQL from the package manager console:
 
     PM> Install-Package AliaSQL
+    
+To get the the c# runner install AliaSQL.Core from the package manager console:
+
+    PM> Install-Package AliaSQL.Core
+
 
 The latest compiled version can be found here: https://github.com/ClearMeasure/AliaSQL/raw/master/nuget/content/scripts/AliaSQL.exe
 
