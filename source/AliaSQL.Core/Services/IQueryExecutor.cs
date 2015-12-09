@@ -12,5 +12,7 @@ namespace AliaSQL.Core.Services
 	    bool CheckDatabaseExists(ConnectionSettings settings);
 	    List<string> GetExecutedScripts(ConnectionSettings settings);
         List<string> GetExecutedTestDataScripts(ConnectionSettings settings);
+	    int DatabaseVersion(ConnectionSettings settings);
+
 	}
 }

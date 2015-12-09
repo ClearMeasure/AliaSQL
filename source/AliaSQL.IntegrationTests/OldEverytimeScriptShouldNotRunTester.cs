@@ -6,7 +6,7 @@ using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 using Should;
 
-namespace AliaSQL.IntegrationTests.OldEverytimeScriptShouldNotRun
+namespace AliaSQL.IntegrationTests
 {
     [TestFixture]
     public class OldEverytimeScriptShouldNotRunTester

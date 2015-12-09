@@ -179,5 +179,14 @@ namespace AliaSQL.Core
             return _queryExecutor.CheckDatabaseExists(_connectionStringGenerator.GetConnectionSettings(connectionString));
         }
 
+        /// <summary>
+        /// Returns database version representing the number of scripts that have been ran against the database
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <returns>Returns database version representing the number of scripts that have been ran against the database</returns>
+        public int DatabaseVersion(string connectionString)
+        {
+            return _queryExecutor.DatabaseVersion(_connectionStringGenerator.GetConnectionSettings(connectionString));
+        }
     }
 }

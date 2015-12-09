@@ -13,5 +13,6 @@ namespace AliaSQL.Core
         List<string> PendingChanges(string connectionString, string scriptDirectory = "");
         List<string> PendingTestData(string connectionString, string scriptDirectory = "");
         bool DatabaseExists(string connectionString);
+        int DatabaseVersion(string connectionString);
     }
 }

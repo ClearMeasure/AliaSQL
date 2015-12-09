@@ -6,7 +6,7 @@ using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 using Should;
 
-namespace AliaSQL.IntegrationTests.ChangedRunAlwaysScriptShouldRun
+namespace AliaSQL.IntegrationTests
 {
     [TestFixture]
     public class ChangedRunAlwaysScriptShouldRunTester

@@ -8,7 +8,7 @@ using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
 using Should;
 
-namespace AliaSQL.IntegrationTests.NewEverytimeScript
+namespace AliaSQL.IntegrationTests
 {
     [TestFixture]
     public class NewEverytimeScriptTester

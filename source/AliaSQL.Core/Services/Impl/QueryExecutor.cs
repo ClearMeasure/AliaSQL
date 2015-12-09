@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Transactions;
 using AliaSQL.Core.Model;
@@ -53,7 +54,7 @@ namespace AliaSQL.Core.Services.Impl
                         }
                         catch (Exception ex)
                         {
-                            ex.Data.Add("Custom","Erroring script was not run in a transaction and may be partially committed.");
+                            ex.Data.Add("Custom", "Erroring script was not run in a transaction and may be partially committed.");
                             throw ex;
                         }
 
@@ -230,7 +231,24 @@ namespace AliaSQL.Core.Services.Impl
                 }
             }
             return executedfiles;
-        } 
+        }
+
+        public int DatabaseVersion(ConnectionSettings settings)
+        {
+            int version = 0;
+            if (!CheckDatabaseExists(settings)) return version; 
+            var tmpConn = new SqlConnection(_connectionStringGenerator.GetConnectionString(settings, true));
+            using (tmpConn)
+            {
+                using (var sqlCmd = new SqlCommand("if OBJECT_ID('usd_AppliedDatabaseScript', 'U') is not null select count(1) from usd_AppliedDatabaseScript else select 0 as Version", tmpConn))
+                {
+                    tmpConn.Open();
+                    version = (int)sqlCmd.ExecuteScalar();
+                    tmpConn.Close();
+                }
+            }
+            return version;
+        }
 
     }
 }
