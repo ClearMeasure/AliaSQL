@@ -30,7 +30,10 @@ namespace AliaSQL.UnitTests
 
                 taskObserver.Log(string.Format("Run scripts in Everytime folder."));
                 scriptfolderexecutor.ExecuteChangedScriptsInFolder(taskAttributes, "Everytime", taskObserver);
-			}
+
+                taskObserver.Log(string.Format("Run scripts in RunAlways folder."));
+                scriptfolderexecutor.ExecuteRunAlwaysScriptsInFolder(taskAttributes, "RunAlways", taskObserver);
+            }
 
 			using (mocks.Playback())
 			{

@@ -55,6 +55,12 @@
     <Content Include="Scripts\ChangedEverytimeScriptShouldRun\Everytime\TestScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\ChangedRunAlwaysScriptShouldRun\RunAlways\TestScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\NewRunAlwaysScriptShouldRun\RunAlways\TestScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\OldEverytimeScriptShouldNotRun\Everytime\TestScript.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -62,10 +68,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Compile Include="ChangedEverytimeScriptShouldRunTester.cs" />
+    <Compile Include="ChangedRunAlwaysScriptShouldRunTester.cs" />
+    <Compile Include="NewRunAlwaysScriptShouldRunTester.cs" />
     <Compile Include="OldEverytimeScriptShouldNotRunTester.cs" />
     <Compile Include="NewEverytimeScriptTester.cs" />
+    <Compile Include="OldRunAlwaysScriptShouldRunTester.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\OldRunAlwaysScriptShouldRun\RunAlways\TestScript.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -74,10 +86,19 @@
   <ItemGroup>
     <Folder Include="Scripts\ChangedEverytimeScriptShouldRun\Create\" />
     <Folder Include="Scripts\ChangedEverytimeScriptShouldRun\Update\" />
+    <Folder Include="Scripts\ChangedRunAlwaysScriptShouldRun\Create\" />
+    <Folder Include="Scripts\ChangedRunAlwaysScriptShouldRun\Everytime\" />
+    <Folder Include="Scripts\ChangedRunAlwaysScriptShouldRun\Update\" />
     <Folder Include="Scripts\NewEverytimeScript\Create\" />
     <Folder Include="Scripts\NewEverytimeScript\Update\" />
+    <Folder Include="Scripts\NewRunAlwaysScriptShouldRun\Create\" />
+    <Folder Include="Scripts\NewRunAlwaysScriptShouldRun\Everytime\" />
+    <Folder Include="Scripts\NewRunAlwaysScriptShouldRun\Update\" />
     <Folder Include="Scripts\OldEverytimeScriptShouldNotRun\Create\" />
     <Folder Include="Scripts\OldEverytimeScriptShouldNotRun\Update\" />
+    <Folder Include="Scripts\OldRunAlwaysScriptShouldRun\Create\" />
+    <Folder Include="Scripts\OldRunAlwaysScriptShouldRun\Everytime\" />
+    <Folder Include="Scripts\OldRunAlwaysScriptShouldRun\Update\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AliaSQL.Console\AliaSQL.Console.csproj">

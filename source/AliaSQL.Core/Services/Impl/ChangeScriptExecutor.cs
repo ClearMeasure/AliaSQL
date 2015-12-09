@@ -86,6 +86,26 @@ namespace AliaSQL.Core.Services.Impl
             }
         }
 
+        public void ExecuteAlways(string fullFilename, ConnectionSettings settings, ITaskObserver taskObserver, bool logOnly = false)
+        {
+            string scriptFilename = getFilename(fullFilename);
+            var scriptFileMD5 = GetFileMD5Hash(fullFilename);
+
+            if (!logOnly)
+            {
+                string sql = _fileSystem.ReadTextFile(fullFilename);
+
+                taskObserver.Log(string.Format("Executing: {0}{1}", getLastFolderName(fullFilename), scriptFilename));
+                _executor.ExecuteNonQuery(settings, sql, true);
+            }
+            else
+            {
+                taskObserver.Log(string.Format("Executing: {0}{1} in log only mode", getLastFolderName(fullFilename), scriptFilename));
+            }
+
+            _executionTracker.MarkScriptAsExecuted(settings, scriptFilename, taskObserver, scriptFileMD5);
+        }
+
         public static string GetFileMD5Hash(string fullFilename)
         {
             string scriptFileMD5;
@@ -111,6 +131,7 @@ namespace AliaSQL.Core.Services.Impl
             if (lastfolder.ToLower() == "create") return string.Empty;
             if (lastfolder.ToLower() == "update") return string.Empty;
             if (lastfolder.ToLower() == "everytime") return string.Empty;
+            if (lastfolder.ToLower() == "runalways") return string.Empty;
             return lastfolder + "/";
         }
 
