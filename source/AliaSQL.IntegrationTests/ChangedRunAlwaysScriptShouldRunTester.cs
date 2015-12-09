@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using AliaSQL.Console;
+using AliaSQL.Core;
 using AliaSQL.Core.Model;
 using AliaSQL.Core.Services.Impl;
 using NUnit.Framework;
