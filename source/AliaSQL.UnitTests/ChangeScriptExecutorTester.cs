@@ -68,6 +68,7 @@ namespace AliaSQL.UnitTests
 			Expect.Call(executionTracker.ScriptAlreadyExecuted(settings, "01_Test.sql")).Return(false);
 			taskObserver.Log("Executing: 01_Test.sql in a transaction");
 			Expect.Call(fileSystem.ReadTextFile(scriptFile)).Return(fileContents);
+            Expect.Call(queryExecutor.ScriptSupportsTransactions(fileContents)).Return(true);
 			queryExecutor.ExecuteNonQueryTransactional(settings, fileContents);
 			executionTracker.MarkScriptAsExecuted(settings, "01_Test.sql", taskObserver);
 
@@ -96,6 +97,7 @@ namespace AliaSQL.UnitTests
             Expect.Call(executionTracker.ScriptAlreadyExecuted(settings, "01_Test.sql")).Return(false);
             taskObserver.Log("Executing: 01_Test.sql");
             Expect.Call(fileSystem.ReadTextFile(scriptFile)).Return(fileContents);
+            Expect.Call(queryExecutor.ScriptSupportsTransactions(fileContents)).Return(false);
             queryExecutor.ExecuteNonQuery(settings, fileContents, true);
             executionTracker.MarkScriptAsExecuted(settings, "01_Test.sql", taskObserver);
 

@@ -13,6 +13,6 @@ namespace AliaSQL.Core.Services
 	    List<string> GetExecutedScripts(ConnectionSettings settings);
         List<string> GetExecutedTestDataScripts(ConnectionSettings settings);
 	    int DatabaseVersion(ConnectionSettings settings);
-
+	    bool ScriptSupportsTransactions(string sql);
 	}
 }

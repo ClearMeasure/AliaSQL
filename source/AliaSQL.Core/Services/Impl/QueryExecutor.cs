@@ -250,5 +250,34 @@ namespace AliaSQL.Core.Services.Impl
             return version;
         }
 
+        /// <summary>
+        /// Some commands are not allowed inside transactions
+        /// http://msdn.microsoft.com/en-us/library/ms191544.aspx
+        /// </summary>
+        public bool ScriptSupportsTransactions(string sql)
+        {
+            if (sql.IndexOf("ALTER DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("ALTER FULLTEXT INDEX ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("BACKUP ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT CATALOG ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("CREATE FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP DATABASE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT CATALOG", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("DROP FULLTEXT INDEX", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RECONFIGURE", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            if (sql.IndexOf("RESTORE ", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+            //UPDATE STATISTICS can be used inside an explicit transaction. However, UPDATE STATISTICS commits independently of the enclosing transaction and cannot be rolled back.
+
+            //Many system stored procedures can't run in a transaction such as sp_fulltext_database
+            //More can be added here as they are discovered
+            if (sql.IndexOf("sp_fulltext_database", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+
+            //manual override of transactions
+            if (sql.IndexOf("--NOTRANSACTION", StringComparison.OrdinalIgnoreCase) >= 0) return false;
+
+            return true;
+        }
     }
 }
