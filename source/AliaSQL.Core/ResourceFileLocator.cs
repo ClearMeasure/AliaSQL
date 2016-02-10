@@ -12,7 +12,7 @@ namespace AliaSQL.Core
         {
             using (Stream stream = getStream(assembly, resourceName))
             {
-                using (StreamReader reader = new StreamReader(stream, Encoding.Default))
+                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     string contents = reader.ReadToEnd();
                     return contents;
