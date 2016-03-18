@@ -21,7 +21,6 @@ namespace AliaSQL.UnitTests
             var taskAttributes = new TaskAttributes(settings, "c:\\scripts");
             taskAttributes.RequestedDatabaseAction = RequestedDatabaseAction.TestData;
             var mocks = new MockRepository();
-            var queryExecutor = mocks.StrictMock<IQueryExecutor>();
             var executor = mocks.StrictMock<IScriptFolderExecutor>();
             var taskObserver = mocks.StrictMock<ITaskObserver>();
 
@@ -34,7 +33,36 @@ namespace AliaSQL.UnitTests
             {
                 IDatabaseActionExecutor testdata = new DatabaseTestData(executor);
                 testdata.Execute(taskAttributes, taskObserver);
+
             }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CorrectlyExecutesScriptIfItHasntAlreadyBeenExecuted()
+        {
+            var settings = new ConnectionSettings("server", "db", true, null, null);
+            string scriptFile = @"c:\scripts\TestData\01_Test.sql";
+            string fileContents = "file contents...";
+
+            MockRepository mocks = new MockRepository();
+            IScriptExecutionTracker executionTracker = mocks.StrictMock<IScriptExecutionTracker>();
+            IFileSystem fileSystem = mocks.StrictMock<IFileSystem>();
+            IQueryExecutor queryExecutor = mocks.StrictMock<IQueryExecutor>();
+            ITaskObserver taskObserver = mocks.StrictMock<ITaskObserver>();
+
+            Expect.Call(executionTracker.TestDataScriptAlreadyExecuted(settings, "01_Test.sql")).Return(false);
+            taskObserver.Log("Executing: 01_Test.sql in a transaction");
+            Expect.Call(fileSystem.ReadTextFile(scriptFile)).Return(fileContents);
+            Expect.Call(queryExecutor.ScriptSupportsTransactions(fileContents)).Return(true);
+            queryExecutor.ExecuteNonQueryTransactional(settings, fileContents);
+            executionTracker.MarkTestDataScriptAsExecuted(settings, "01_Test.sql", taskObserver);
+
+            mocks.ReplayAll();
+
+            ITestDataScriptExecutor executor = new TestDataScriptExecutor(executionTracker, queryExecutor, fileSystem);
+            executor.Execute(scriptFile, settings, taskObserver);
 
             mocks.VerifyAll();
         }

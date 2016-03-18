@@ -24,6 +24,7 @@
  	  * version 1.3.3 Remove execution of Everytime scripts in DatabaseCreator - thanks to daveraine
           * version 1.4.0 Added concept of RunAlways scripts that will be executed always, not only when there are new/changed files like in Everytime folder - thanks mpobudejski.
  	  * version 1.4.1 Added file encoding for change to read Spanish characters - Thanks armanvg, Added transaction support for test data scripts - Thanks jlbrown
+ 	  * version 1.4.2 Fix for test data scripts not logging as a result of last revision
 </releaseNotes>
   </metadata>
   <files>

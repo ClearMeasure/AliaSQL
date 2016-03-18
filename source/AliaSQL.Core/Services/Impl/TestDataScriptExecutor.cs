@@ -39,11 +39,14 @@ namespace AliaSQL.Core.Services.Impl
                 {
                     taskObserver.Log(string.Format("Executing: {0}", scriptFilename));
                     _executor.ExecuteNonQuery(settings, sql, true);
+                    _executionTracker.MarkTestDataScriptAsExecuted(settings, scriptFilename, taskObserver);
+
                 }
                 else
                 {
                     taskObserver.Log(string.Format("Executing: {0} in a transaction", scriptFilename));
                     _executor.ExecuteNonQueryTransactional(settings, sql);
+                    _executionTracker.MarkTestDataScriptAsExecuted(settings, scriptFilename, taskObserver);
                 }
 			}
 		}
