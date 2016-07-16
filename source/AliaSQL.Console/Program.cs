@@ -42,6 +42,8 @@ namespace AliaSQL.Console
                 settings = new ConnectionSettings(server, database, false, username, password);
             }
 
+            Debugger.Launch();
+
             if (deployer.UpdateDatabase(settings, scriptDirectory, action))
             {
                 if (Debugger.IsAttached)
@@ -72,6 +74,9 @@ namespace AliaSQL.Console
             System.Console.WriteLine("Baseline - Creates usd_AppliedDatabaseScripts table and logs all current scripts in 'Create' and 'Update' folders as applied without actually running them.");
             System.Console.WriteLine(" ");
             System.Console.WriteLine("Drop - Drops the database");
+            System.Console.WriteLine(" ");
+            System.Console.WriteLine("UpdateCustom - Runs a custom update routine described by the custom.config file in the root of the scripts directory.");
+            System.Console.WriteLine(" ");
 
             if (Debugger.IsAttached)
                 System.Console.ReadLine();

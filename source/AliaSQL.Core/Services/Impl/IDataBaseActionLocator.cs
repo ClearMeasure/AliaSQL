@@ -21,6 +21,10 @@ namespace AliaSQL.Core.Services.Impl
                 {
                     return new DatabaseUpdater();
                 }
+                else if (databaseAction.Equals(DatabaseAction.UpdateCustom))
+                {
+                    return new DatabaseUpdaterCustom();
+                }
                 else if (databaseAction.Equals(DatabaseAction.Drop))
                 {
                     return new DatabaseDropper();
