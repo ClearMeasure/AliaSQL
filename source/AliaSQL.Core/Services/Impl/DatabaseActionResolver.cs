@@ -29,8 +29,12 @@ namespace AliaSQL.Core.Services.Impl
             {
                 return new DatabaseAction[] { DatabaseAction.Baseline };
             }
-			else
-			{
+            else if (requestedDatabaseAction == RequestedDatabaseAction.UpdateCustom)
+            {
+                return new DatabaseAction[] { DatabaseAction.UpdateCustom };
+            }
+            else
+            {
 				return new DatabaseAction[] { DatabaseAction.Update };
 			}
 		}
