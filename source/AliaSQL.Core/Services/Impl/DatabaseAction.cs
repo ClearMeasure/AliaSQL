@@ -11,8 +11,9 @@ namespace AliaSQL.Core.Services.Impl
 			public static readonly DatabaseAction Drop = new DatabaseAction(3, "Drop");
             public static readonly DatabaseAction TestData = new DatabaseAction(4, "TestData");
             public static readonly DatabaseAction Baseline = new DatabaseAction(5, "Baseline");
+            public static readonly DatabaseAction UpdateCustom = new DatabaseAction(6, "UpdateCustom");
 
-			public DatabaseAction()
+            public DatabaseAction()
 			{
 			}
 
