@@ -70,6 +70,7 @@
     <Compile Include="Model\TaskAttributes.cs" />
     <Compile Include="RequestedDatabaseAction.cs" />
     <Compile Include="Services\Impl\DatabaseBaseliner.cs" />
+    <Compile Include="Services\Impl\DatabaseUpdaterCustom.cs" />
     <Compile Include="Services\ITestDataScriptExecutor.cs" />
     <Compile Include="Services\IChangeScriptExecutor.cs" />
     <Compile Include="Services\IConnectionStringGenerator.cs" />
