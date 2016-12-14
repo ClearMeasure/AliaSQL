@@ -27,7 +27,7 @@ namespace AliaSQL.Console
             var action = requestedDatabaseAction;
             string server = args[1];
             string database = args[2];
-            string scriptDirectory = args[3];
+            string scriptDirectory = ConditionScriptPath(args[3]);
             
             if (args.Length == 4)
             {
@@ -75,6 +75,15 @@ namespace AliaSQL.Console
 
             if (Debugger.IsAttached)
                 System.Console.ReadLine();
+        }
+
+        private static string ConditionScriptPath(string initialPath)
+        {
+            if (initialPath.EndsWith("\""))
+                initialPath = initialPath.Remove(initialPath.Length - 1, 1);
+            if(!initialPath.EndsWith("\\"))
+                initialPath += "\\";
+            return initialPath;
         }
     }
 }
