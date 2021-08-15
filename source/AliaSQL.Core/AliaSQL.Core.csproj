@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
@@ -69,7 +70,10 @@
     <Compile Include="Model\ConnectionSettings.cs" />
     <Compile Include="Model\TaskAttributes.cs" />
     <Compile Include="RequestedDatabaseAction.cs" />
+    <Compile Include="Services\Impl\ApplicationSettings.cs" />
     <Compile Include="Services\Impl\DatabaseBaseliner.cs" />
+    <Compile Include="Services\IApplicationSettings.cs" />
+    <Compile Include="Services\Impl\TransactionProvider.cs" />
     <Compile Include="Services\ITestDataScriptExecutor.cs" />
     <Compile Include="Services\IChangeScriptExecutor.cs" />
     <Compile Include="Services\IConnectionStringGenerator.cs" />
