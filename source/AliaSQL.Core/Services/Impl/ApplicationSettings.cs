@@ -7,7 +7,7 @@ namespace AliaSQL.Core.Services.Impl
     {
         public TimeSpan? Timeout()
         {
-            var timeoutValue = ConfigurationManager.AppSettings["timeout"];
+            var timeoutValue = ConfigurationManager.AppSettings["aliasql.transaction.timeout"];
 
             if (string.IsNullOrEmpty(timeoutValue))
             {
