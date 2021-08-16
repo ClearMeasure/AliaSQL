@@ -72,7 +72,7 @@ namespace AliaSQL.Core.Services.Impl
         public void ExecuteNonQueryTransactional(ConnectionSettings settings, string sql)
         {
             //do all this in a single transaction
-            using (var scope = new TransactionScope())
+            using (var scope = new TransactionProvider().CreateTransactionScope())
             {
                 string connectionString = _connectionStringGenerator.GetConnectionString(settings, true);
                 using (var connection = new SqlConnection(connectionString))
